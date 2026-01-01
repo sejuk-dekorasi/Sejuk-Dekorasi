@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Detail Produk - Sejuk Dekorasi</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <button id="burgerBtn" class="burger">☰</button>
+    <div class="brand">
+  <img src="logo.png" style="
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    object-fit:cover;
+  ">
+  Sejuk Dekorasi
+</div>
+
+    <div class="right-actions">
+      <a href="index.html" class="link">Beranda</a>
+      <a href="produk.html" class="link">Produk</a>
+      <a href="kontak.html" class="link">Kontak</a>
+    </div>
+  </header>
+
+  <!-- SIDEBAR -->
+  <nav id="sidebar" class="sidebar">
+    <a href="index.html">Beranda</a>
+    <a href="produk.html">Produk</a>
+    <a href="kontak.html">Kontak Person</a>
+    <a href="tentang.html">Tentang</a>
+    <div class="divider"></div>
+    <a href="admin.html" class="admin-link">Admin Panel</a>
+    <div class="serv-info">Melayani: <strong>Jawa Tengah</strong></div>
+  </nav>
+
+  <main class="container">
+    <h1>Detail Produk</h1>
+
+    <!-- INI TEMPAT DETAIL PRODUK -->
+    <div id="detailContainer"></div>
+
+  </main>
+
+  <footer class="footer">
+    <small>© 2025 Sejuk Dekorasi — rrq onik hann#1945</small>
+  </footer>
+
+  <script src="app.js"></script>
+
+  <script>
+    // SIDEBAR TOGGLE
+    document.getElementById('burgerBtn').addEventListener('click', ()=>{
+      document.getElementById('sidebar').classList.toggle('active');
+    });
+
+    // LOAD DETAIL PRODUK
+    document.addEventListener("DOMContentLoaded", ()=> {
+      window.loadDetail();  // <-- otomatis memanggil renderDetail()
+    });
+  </script>
+
+</body>
+</html>

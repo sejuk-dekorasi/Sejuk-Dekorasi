@@ -1,0 +1,972 @@
+/* style.css - Sejuk Dekorasi (futuristic gradient) */
+:root{
+  --bg1: #6a00ff;
+  --bg2: #00a3ff;
+  --bg3: #ff2d6f;
+  --card: rgba(255,255,255,0.09);
+  --glass: rgba(20,20,30,0.55);
+  --accent: #ffffff;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: Inter, "Poppins", Arial, sans-serif;
+  background: linear-gradient(135deg, var(--bg1), var(--bg2) 45%, var(--bg3));
+  color:var(--accent);
+  min-height:100vh;
+}
+/* TOPBAR */
+/* TOPBAR - diperbarui untuk safe-area (notch/statusbar) */
+.topbar{
+  position:fixed;
+  top:0; left:0; right:0;
+  height:50px;
+  padding: calc(13px + env(safe-area-inset-top, 0px)) 16px 13px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background: linear-gradient(90deg, rgba(0,0,0,0.25), rgba(0,0,0,0.18));
+  backdrop-filter: blur(6px);
+  z-index:999;
+  -webkit-backdrop-filter: blur(6px);
+}
+
+main{
+  padding-top: calc(60px + env(safe-area-inset-top, 0px) + 20px);
+  padding-bottom:60px;
+  min-height:calc(100vh - 160px);
+}
+
+.brand{font-weight:700; font-size:18px; margin-left:6px}
+.right-actions{margin-left:auto; display:flex; gap:10px; align-items:center}
+.link{color:rgba(255,255,255,0.9); font-size:14px}
+
+.burger{
+  font-size:22px;
+  background:none;
+  border:none;
+  color:var(--accent);
+  cursor:pointer;
+}
+
+/* SIDEBAR */
+.sidebar{
+  position:fixed;
+  top:60px;
+  left:-270px;
+  width:270px;
+  bottom:0;
+  padding:18px 12px;
+  background: linear-gradient(180deg, rgba(10,10,20,0.55), rgba(40,10,40,0.6));
+  border-right:1px solid rgba(255,255,255,0.03);
+  transition: left .35s ease;
+  z-index:995;
+}
+.sidebar.active{ left:0 }
+
+.sidebar a{
+  display:block;
+  padding:12px 14px;
+  color:var(--accent);
+  border-radius:8px;
+  margin-bottom:8px;
+  font-weight:600;
+}
+.sidebar a:hover{ background: rgba(255,255,255,0.04) }
+
+.divider{height:1px; background: rgba(255,255,255,0.03); margin:12px 0}
+.serv-info{ margin-top:16px; font-size:13px; opacity:0.9 }
+
+/* container */
+.container{ max-width:1100px; margin: auto; padding: 20px }
+
+/* hero */
+.hero{ text-align:center; padding:36px 18px 30px }
+.hero h1{ font-size:36px; margin:0 0 8px }
+.hero p{ opacity:0.95; margin:0 0 18px }
+.hero-actions{ display:flex; gap:10px; justify-content:center; align-items:center; flex-wrap:wrap }
+.search{ padding:12px 14px; width:360px; max-width:90%; border-radius:10px; border:none; outline:none; background: rgba(255,255,255,0.06); color:var(--accent) }
+.btn{ padding:10px 14px; border-radius:8px; border:none; cursor:pointer; font-weight:700 }
+.btn-primary{ background: #fff; color:#5b00e6 }
+
+/* grid produk */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap:22px;
+  margin-top:18px;
+}
+
+.card{
+  background: var(--card);
+  border-radius:14px;
+  overflow:hidden;
+  transition: transform .22s ease, box-shadow .22s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+.card:hover{ transform: translateY(-8px); box-shadow: 0 20px 35px rgba(0,0,0,0.35) }
+
+.card img{ width:100%; height:170px; object-fit:cover; display:block }
+.card .meta{ padding:20px 18px }
+.card h3{ margin:0 0 6px; font-size:16px }
+.card p{ margin:0; opacity:0.9; font-size:14px }
+.kode{ margin-top:15px; font-weight:700; color: #ffd; font-size:13px }
+
+/* detail */
+.detail-img{ width:100%; border-radius:12px; max-height:420px; object-fit:cover; display:block; margin-bottom:40px }
+.detail-box{ background: var(--card); padding:40px; border-radius:12px }
+
+/* admin */
+.input{ width:100%; padding:10px 12px; border-radius:8px; border:none; margin:6px 0; background: rgba(255,255,255,0.04); color:var(--accent) }
+textarea.input{ resize:vertical }
+
+.admin-card{ background: rgba(255,255,255,0.03); padding:10px; border-radius:8px; margin-bottom:10px }
+
+/* footer */
+.footer{
+  text-align:center;
+  padding:18px 12px;
+  color: rgba(255,255,255,0.8)
+}
+
+/* responsive */
+@media (max-width:700px){
+  .sidebar{ width:100%; left:-100% }
+  .sidebar.active{ left:0; }
+  .brand{ font-size:16px }
+  .hero h1{ font-size:28px }
+  .grid{ grid-template-columns: repeat(auto-fill, minmax(160px,1fr)) }
+}
+
+/* request textarea */
+#reqBox {
+  width: 100%;
+  min-height: 90px;
+  padding: 10px;
+  border: 1px solid #b2b2b2;
+  border-radius: 8px;
+  font-size: 14px;
+  resize: vertical;
+  background: #fafafa;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.req-label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Box Tipe Bunga */
+.tipe-box {
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  font-size: 14px;
+  background: linear-gradient(135deg, #7b2ff7, #1b8cf2, #ff2f56);
+  background-size: 200% 200%;
+  animation: gradientMove 5s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.detail-box {
+  background: linear-gradient(135deg, #7f00ff, #0084ff, #ff0040);
+  padding: 20px;
+  border-radius: 15px;
+  color: white;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+}
+
+.tipe-box label {
+  font-size: 15px;
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.label-bold {
+  display: block;
+  font-weight: bold;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+.tipe-box input {
+  margin-right: 6px;
+  transform: scale(1.2);
+}
+
+.btn-primary {
+  background: #ffffff;
+  color: #000;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: none;
+  box-shadow: 0 3px 12px rgba(255,255,255,0.4);
+}
+
+/* Kategori Style */
+.select {
+  background: linear-gradient(135deg, #ffffff33, #ffffff18);
+  border: 1px solid #ffffff55;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  appearance: none;
+  outline: none;
+  transition: 0.25s ease;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='white'%3e%3cpath d='M7 10l5 5 5-5H7z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 18px;
+}
+
+.select:hover { border-color: #ffffff88; }
+.select:focus { border-color: #fff; box-shadow: 0 0 0 3px #ffffff40; }
+
+/* LOGIN PAGE */
+.login-page {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(
+    135deg,
+    rgba(128, 0, 255, 0.8),
+    rgba(0, 102, 255, 0.8),
+    rgba(255, 0, 102, 0.8)
+  );
+  background-size: 300% 300%;
+  animation: bg-move 10s ease infinite;
+}
+
+@keyframes bg-move {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.login-page .auth-box {
+  width: 330px;
+  padding: 25px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  color: white;
+  text-align: center;
+}
+
+.login-page .auth-box h2 {
+  margin-bottom: 18px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.login-page .auth-box input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  background: rgba(255,255,255,0.2);
+  color: white;
+}
+
+.login-page .auth-box input::placeholder {
+  color: rgba(255,255,255,0.75);
+}
+
+.login-page .btn-primary {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+  transition: 0.3s ease;
+}
+
+.login-page .btn-primary:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.login-page a {
+  color: #eee;
+  text-decoration: underline;
+}
+
+.login-page .muted {
+  font-size: 13px;
+  opacity: 0.7;
+  margin-top: 10px;
+}
+
+/* FILTER HARGA */
+.price-filter-box {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.price-input {
+  width: 140px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  color: #fff;
+  background: linear-gradient(135deg, #ffffff33, #ffffff18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid #ffffff44;
+  transition: 0.25s ease;
+}
+
+.price-input::placeholder { color: #ffffffaa; }
+.price-input:focus { border-color:#fff; box-shadow:0 0 0 3px #ffffff40; }
+
+/* SEARCH BAR */
+.control-input {
+  width: 360px;
+  max-width: 90%;
+  padding: 12px 14px;
+  background: linear-gradient(135deg, #ffffff33, #ffffff18);
+  border: 1px solid #ffffff44;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  transition: 0.25s ease, border-color 0.25s ease;
+}
+
+.control-input::placeholder { color:#ffffffaa; }
+.control-input:focus {
+  border-color:#fff;
+  box-shadow:0 0 0 3px #ffffff40, 0 4px 14px rgba(0,0,0,0.35);
+  transform: translateY(-1px);
+}
+
+.control-select {
+  width: 360px;
+  max-width: 90%;
+  padding: 12px 14px;
+  background: linear-gradient(135deg, #ffffff33, #ffffff18);
+  border: 1px solid #ffffff44;
+  border-radius: 12px;
+  color: black;
+  font-size: 15px;
+  outline: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  transition: 0.25s ease, border-color 0.25s ease;
+}
+
+.control-select:focus {
+  border-color:#fff;
+  box-shadow:0 0 0 3px #ffffff40, 0 4px 14px rgba(0,0,0,0.35);
+  transform: translateY(-1px);
+}
+
+/* ======== DISKON (KODE PENTING) ======== */
+.harga-coret {
+  text-decoration: line-through;
+  opacity: 0.6;
+  margin-left: 6px;
+  font-size: 13px;
+}
+
+.harga-diskon {
+  color: #ff2d6f;
+  font-weight: 700;
+}
+.card {
+  position: relative; /* WAJIB supaya tag diskon bisa jadi anaknya */
+}
+
+.tag-diskon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ff2d6f;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+ 
+
+.promo-box {
+  margin-top: 18px;
+  padding: 12px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.promo-title {
+  margin-bottom: 8px;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.promo-input {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+}
+
+.promo-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+  border-radius: 6px;
+  color: #fff;
+}
+
+.promo-input button {
+  background: #26c281;
+  padding: 10px 14px;
+  border-radius: 6px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.promo-input button:hover {
+  background: #1ba56a;
+}
+
+.promo-valid {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(60,255,100,0.15);
+  border: 1px solid rgba(60,255,100,0.4);
+  color: #5fffa3;
+  font-size: 14px;
+}
+
+.promo-invalid {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(255,60,60,0.15);
+  border: 1px solid rgba(255,80,80,0.4);
+  color: #ff6e6e;
+  font-size: 14px;
+}
+
+/* Harga setelah promo */
+
+
+/* ===================== ADMIN PROMO ===================== */
+
+.admin-card {
+  background: rgba(255,255,255,0.06);
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(255,255,255,0.07);
+}
+
+.admin-card button {
+  margin-right: 6px;
+}
+
+.btn-mini {
+  padding: 5px 10px !important;
+  font-size: 12px !important;
+  border-radius: 5px;
+}
+/* ================================
+   PERBAIKAN STYLE HARGA & DISKON
+================================*/
+
+/* Wrapper kartu produk */
+
+/* Harga normal */
+.price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #4dff88;
+  margin-top: 3px;
+}
+
+/* Harga coret */
+.old-price {
+  font-size: 15px;
+  color: #ff8080;
+  text-decoration: line-through;
+  opacity: 0.8;
+}
+
+/* Label diskon di pojok kiri */
+.btn{
+    text-align:center;
+}
+.reqBox{
+    background: linear-gradient(135deg, #7f00ff, #005eff, #ff0033);
+    padding: 12px;
+    border-radius: 12px;
+    color: white;
+    font-weight: 500;
+    margin-top: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+}
+textarea{
+    background: linear-gradient(135deg, #7f00ff, #005eff, #ff0033);
+    padding: 20px 40px;         /* lebih kecil dari reqBox */
+    border-radius: 8px;        /* lebih kecil */
+    color: white;
+    font-weight: 500;
+    margin-top: 8px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    border: none;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+.discount-tag {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 7px;
+  background: linear-gradient(45deg, #ff005b, #ff7b00);
+  color: #fff;
+  font-size: 11px;
+  font-weight: bold;
+  border-radius: 6px;
+  vertical-align: middle;
+}
+.detail-container,
+.product-detail,
+#detailBox {
+  margin-top: 90px; /* sesuaikan tinggi headermu */
+}
+.detail-img-box img {
+  width: 100%;
+  max-width: 380px;     /* batas maksimal lebar */
+  max-height: 380px;    /* batas maksimal tinggi */
+  object-fit: cover;
+  display: block;
+  margin: auto;
+  border-radius: 12px;
+
+  background: linear-gradient(135deg, #6a11cb, #2575fc, #ff0044);
+  box-shadow: 0 0 18px rgba(0,0,0,0.25);
+}
+
+.detail-img-box img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+}
+
+.price-frame {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.65);
+  color: #fff;
+  font-size: 14px;
+  text-align: right;
+}
+
+.price-frame .old {
+  text-decoration: line-through;
+  opacity: 0.7;
+  font-size: 13px;
+}
+
+.price-frame .new {
+  font-weight: bold;
+  font-size: 16px;
+  color: #ffdf5c;
+}
+/* Kotak pilihan diskon admin */
+.diskon-box {
+  margin-top: 15px;
+  padding: 12px 14px;
+  border-radius: 10px;
+
+  /* Gradasi lembut ungu → biru → merah */
+  background: linear-gradient(135deg,
+    rgba(128, 0, 255, 0.35),
+    rgba(0, 102, 255, 0.35),
+    rgba(255, 0, 85, 0.35)
+  );
+
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(6px);
+}
+
+/* Label judul */
+.diskon-box label b {
+  font-size: 15px;
+  color: #fff;
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* Radio button & teks */
+.diskon-box input[type="radio"] {
+  transform: scale(1.1);
+  margin-right: 6px;
+}
+
+/* Teks opsi */
+.diskon-box label {
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+.total-bayar-box {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 12px;
+  background: #f8f8f8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.total-bayar-label {
+  color: #444;
+}
+
+.total-bayar-angka {
+  color: #2b8a3e;
+  font-size: 18px;
+  font-weight: 700;
+}
+/* COUNTDOWN PROMO */
+#countdownTimer {
+  margin-top: 6px;
+  font-size: 0.95em;
+  font-weight: 600;
+  color: #ff3b3b;
+  background: rgba(255, 0, 0, 0.08);
+  padding: 6px 10px;
+  border-radius: 6px;
+  display: inline-block;
+}
+/* Modal - elegant */
+/* ============================================================
+   MODAL GLOBAL THEME — GRADIENT BLUE → PURPLE → RED
+   ============================================================ */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  /* gradasi background */
+  background: linear-gradient(
+    135deg,
+    rgba(0, 102, 255, 0.45) 0%,    /* biru */
+    rgba(147, 0, 255, 0.45) 50%,   /* ungu */
+    rgba(255, 0, 95, 0.45) 100%    /* merah */
+  );
+
+  backdrop-filter: blur(10px);    /* efek blur */
+  -webkit-backdrop-filter: blur(10px);
+
+  opacity: 0;
+  transition: opacity .25s ease;
+  z-index: 99999;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+}
+
+/* CARD UTAMA */
+.modal-card {
+  background: #ffffff;
+  width: 92%;
+  max-width: 420px;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+
+  transform: translateY(40px) scale(.96);
+  opacity: 0;
+  transition: .25s ease;
+}
+
+.modal-overlay.open .modal-card {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* CLOSE BUTTON */
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 26px;
+  font-weight: bold;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  transition: .2s;
+}
+
+.modal-close:hover {
+  color: #000;
+}
+
+/* ACTION BUTTONS */
+.modal-actions {
+  margin-top: 14px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-actions .btn {
+  padding: 9px 18px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+/* PRIMARY BUTTON */
+.btn-primary {
+  background: #2a8f2a;
+  color: white;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 12px 20px;
+}
+
+.btn-primary:hover {
+  background: #237a23;
+}
+/* ============================================================ */
+/*  MODAL — OVERLAY GRADIENT FIX (ANTI TERTIMPA CSS LAIN)       */
+/* ============================================================ */
+
+#orderModal {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(
+    135deg,
+    rgba(0, 102, 255, 0.55) 0%,
+    rgba(147, 0, 255, 0.55) 50%,
+    rgba(255, 0, 95, 0.55) 100%
+  ) !important;
+
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+
+  z-index: 999999 !important;
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+
+#orderModal.open {
+  opacity: 1 !important;
+}
+
+/* CARD */
+#orderModal .modal-card {
+  background: #ffffff !important;
+  border-radius: 18px;
+  padding: 20px;
+  width: 92%;
+  max-width: 420px;
+
+  box-shadow: 0 10px 50px rgba(0,0,0,0.35);
+
+  transform: translateY(40px) scale(.96);
+  opacity: 0;
+  transition: .25s ease;
+}
+
+#orderModal.open .modal-card {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* CLOSE BUTTON */
+#orderModal .modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 26px;
+  font-weight: bold;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Action buttons */
+#orderModal .modal-actions {
+  margin-top: 14px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+/* COUNTDOWN DISKON ADMIN / PROMO */.deadline-countdown {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(255, 0, 80, 0.25);
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
+
+/* SMALL TIMER (PROMO) */
+.promo-timer {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #ffeb77;
+  }
+  /* =======================
+   MULTI IMAGE SLIDER
+   ======================= */
+/* ================================
+   SORTIR HARGA (TERMURAH / TERMAHAL)
+   ================================ */
+#sortPrice {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  backdrop-filter: blur(6px);
+  transition: 0.25s ease;
+  cursor: pointer;
+}
+
+/* hover */
+#sortPrice:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.6);
+}
+
+/* focus */
+#sortPrice:focus {
+  outline: none;
+  border-color: #00e5ff;
+  background: rgba(255,255,255,0.18);
+}
+
+/* isi tampilan option dropdown */
+#sortPrice option {
+  color: #000;
+  background: #fff;
+  font-weight: 500;
+}
+
+/* RESPONSIVE FIX */
+@media (max-width: 600px) {
+  #sortPrice {
+    width: 100%;
+    margin-top: 10px;
+  }
+  .topbar .brand .logo{
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  display: block;
+}
+@media (max-width:700px){
+  .topbar .brand .logo{
+    width: 16px !important;
+    height: 16px !important;
+  }
+}
+.wa-float{
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  z-index: 9999;
+}
+
+.wa-float img{
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+@media (max-width:700px){
+  .wa-float{
+    width: 46px;
+    height: 46px;
+  }
+  .wa-float img{
+    width: 24px;
+    height: 24px;
+  }
+}
+
+
+
+}

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sejuk Dekorasi - Produk</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <button id="burgerBtn" class="burger">☰</button>
+    <div class="brand">
+  <img src="logo.png" style="
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    object-fit:cover;
+  ">
+  Sejuk Dekorasi
+</div>
+
+    <div class="right-actions">
+      <a href="index.html" class="link">Beranda</a>
+      <a href="kontak.html" class="link">Kontak</a>
+    </div>
+  </header>
+
+  <!-- SIDEBAR -->
+  <nav id="sidebar" class="sidebar">
+    <a href="index.html">Beranda</a>
+    <a href="produk.html" class="active">Produk</a>
+    <a href="kontak.html">Kontak Person</a>
+    <a href="tentang.html">Tentang</a>
+    <div class="divider"></div>
+    <a href="admin.html" class="admin-link">Admin Panel</a>
+    <div class="serv-info">Melayani: <strong>Jawa Tengah</strong></div>
+  </nav>
+
+  <main class="container">
+    <h1>Produk</h1>
+
+    <div class="controls">
+      <input id="searchBox" class="control-input" placeholder="Cari produk (nama atau kode)..." />
+
+      <select id="categoryFilter" class="control-select">
+        <option value="">Semua Kategori</option>
+        <option value="pernikahan">Pernikahan/Lamaran</option>
+        <option value="ultah">Ulang Tahun</option>
+        <option value="keluarga">Acara Keluarga</option>
+        <option value="lainnya">Lainnya</option>
+      </select>
+
+      <div class="price-group">
+        <input id="minPrice" type="number" class="control-input price-input" placeholder="Harga min (Rp)" min="0" />
+        <span class="price-sep"></span>
+        <input id="maxPrice" type="number" class="control-input price-input" placeholder="Harga max (Rp)" min="0" />
+      </div>
+
+      <!-- SORTIR HARGA (BARU, TIDAK MENGGANGGU STRUKTUR YANG ADA) -->
+      <select id="sortPrice" class="control-select">
+        <option value="">Sortir Harga</option>
+        <option value="asc">Harga Termurah</option>
+        <option value="desc">Harga Termahal</option>
+      </select>
+
+      <div class="controls-actions">
+        <button id="clearFilters" class="btn ghost">Reset</button>
+      </div>
+    </div>
+
+    <div id="produkGrid" class="grid">
+      <!-- diisi oleh app.js -->
+    </div>
+  </main>
+
+  <footer class="footer">
+    <small>© 2025 Sejuk Dekorasi — rrq onik hann#1945</small>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    // sidebar toggle
+    document.getElementById('burgerBtn').addEventListener('click', ()=>{
+      document.getElementById('sidebar').classList.toggle('active');
+    });
+
+    // DOM references
+    const searchBox = document.getElementById('searchBox');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const minPrice = document.getElementById('minPrice');
+    const maxPrice = document.getElementById('maxPrice');
+    const sortPrice = document.getElementById('sortPrice');
+    const clearBtn = document.getElementById('clearFilters');
+
+    // bind events
+    searchBox.addEventListener('input', ()=> renderProducts());
+    categoryFilter.addEventListener('change', ()=> renderProducts());
+    minPrice.addEventListener('input', ()=> renderProducts());
+    maxPrice.addEventListener('input', ()=> renderProducts());
+    sortPrice.addEventListener('change', ()=> renderProducts());
+
+    clearBtn.addEventListener('click', ()=>{
+      searchBox.value = '';
+      categoryFilter.value = '';
+      minPrice.value = '';
+      maxPrice.value = '';
+      sortPrice.value = '';
+      renderProducts();
+    });
+
+    // prefill search if ada ?search=...
+    const urlQ = new URLSearchParams(window.location.search).get('search');
+    if(urlQ){
+      searchBox.value = urlQ;
+    }
+
+    // initial render
+    document.addEventListener('DOMContentLoaded', ()=> {
+      renderProducts();
+    });
+  </script>
+</body>
+</html>

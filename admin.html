@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin - Sejuk Dekorasi</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+  <img src="logo.png" style="
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    object-fit:cover;
+  ">
+ Admin-Sejuk Dekorasi
+</div>
+    <div style="margin-left:auto"><a href="index.html" class="link">Lihat Situs</a></div>
+  </header>
+
+  <main class="container">
+    <!-- ================= LOGIN AREA ================= -->
+    <div id="authArea" style="display:none">
+      <h2>Admin Login</h2>
+      <p>Masuk dengan username & password khusus.</p>
+
+      <label>Username</label>
+      <input type="text" id="adminUser" class="input" placeholder="username..." />
+      <label>Password</label>
+      <input type="password" id="adminPass" class="input" placeholder="password..." />
+      <button id="adminLogin" class="btn btn-primary">Login sebagai Admin</button>
+
+      <div id="adminMsg" style="margin-top:12px; font-size:13px; color:#ffd"></div>
+    </div>
+
+    <!-- ================= PANEL ADMIN ================= -->
+    <div id="panelArea" style="display:none">
+      <h2>Panel Admin</h2>
+      <p>Tambah / edit produk & promo. Data disimpan di browser (localStorage).</p>
+
+      <!-- ------- FORM PRODUK ------- -->
+      <h3>Kelola Produk</h3>
+
+      <label>Kode Produk (unik)</label>
+      <input id="pKode" class="input" placeholder="contoh: D001" />
+
+      <label>Nama Produk</label>
+      <input id="pNama" class="input" />
+
+      <label>Kategori</label>
+      <select id="pKategori" class="input">
+        <option value="pernikahan">Pernikahan</option>
+        <option value="ultah">Ulang Tahun</option>
+        <option value="keluarga">Acara Keluarga</option>
+        <option value="lainnya">Lainnya</option>
+      </select>
+
+      <label>Harga (angka tanpa titik)</label>
+      <input id="pHarga" class="input" placeholder="1500000" />
+
+      <label>Diskon (%)</label>
+      <input id="pDiskon" class="input" placeholder="contoh: 20" />
+
+      <label>URL Gambar</label>
+      <input id="pImg" class="input" placeholder="img/dekor1.jpg atau https://..." />
+
+      <label>Deskripsi singkat</label>
+      <textarea id="pDesc" class="input" rows="3"></textarea>
+
+      <div style="margin-top:10px;">
+        <button id="addProduct" class="btn btn-primary">Tambah / Simpan Produk</button>
+        <button id="logoutBtn" class="btn btn-danger">Logout</button>
+      </div>
+
+      <h3>Daftar Produk</h3>
+      <div id="adminList"></div>
+      <!-- ================= PANEL PROMO ================= -->
+      <hr style="margin:18px 0; border-color: rgba(255,255,255,0.05)" />
+      <h3>Kelola Promo (Kode Voucher)</h3>
+
+      <label>Kode Promo (unik)</label>
+      <input id="promoCode" class="input" placeholder="contoh: SEJUK30" />
+
+      <label>Tipe Diskon</label>
+      <select id="promoType" class="input">
+        <option value="percent">Persentase (%)</option>
+        <option value="nominal">Nominal (Rp)</option>
+      </select>
+
+      <label>Nilai Diskon</label>
+      <input id="promoValue" class="input" placeholder="contoh: 30 (untuk 30%) atau 50000 (untuk Rp)" />
+
+      <label>Scope Promo</label>
+      <select id="promoScope" class="input">
+        <option value="all">Semua Produk</option>
+        <option value="category">Kategori Tertentu</option>
+        <option value="product">Produk Tertentu</option>
+      </select>
+
+      <label id="scopeValueLabel">Scope Value</label>
+      <input id="promoScopeValue" class="input" placeholder="Kosongkan jika semua (jika category: isi 'pernikahan', jika product: isi kode produk SD-001)" />
+
+      <label>Minimal Harga (Rp)</label>
+      <input id="promoMinHarga" class="input" placeholder="0" />
+
+      <label>Expired (YYYY-MM-DD)</label>
+      <input id="promoExpired" class="input" placeholder="2025-12-31 (kosong = tanpa expired)" />
+
+      <label>Limit Penggunaan (0 = unlimited)</label>
+      <input id="promoLimit" class="input" placeholder="0" />
+
+      <div style="margin-top:10px;">
+        <button id="addPromoBtn" class="btn btn-primary">Tambah / Simpan Promo</button>
+        <button id="clearPromoBtn" class="btn">Bersihkan Form</button>
+      </div>
+
+      <h4 style="margin-top:16px;">Daftar Promo</h4>
+      <div id="promoList"></div>
+
+    </div> <!-- panelArea -->
+  </main>
+
+  <footer class="footer">
+    <small>© 2025 Sejuk Dekorasi — rrq onik hann#1945</small>
+  </footer>
+
+  <script src="auth.js"></script>
+  <script src="app.js"></script>
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  // --- ELEMENT REFERENCES (produk) ---
+  const authArea = document.getElementById('authArea');
+  const panelArea = document.getElementById('panelArea');
+  const adminUser = document.getElementById('adminUser');
+  const adminPass = document.getElementById('adminPass');
+  const adminLoginBtn = document.getElementById('adminLogin');
+  const adminMsg = document.getElementById('adminMsg');
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  const pKode = document.getElementById('pKode');
+  const pNama = document.getElementById('pNama');
+  const pKategori = document.getElementById('pKategori');
+  const pHarga = document.getElementById('pHarga');
+  const pDiskon = document.getElementById('pDiskon');
+  const pImg = document.getElementById('pImg');
+  const pDesc = document.getElementById('pDesc');
+  const addProductBtn = document.getElementById('addProduct');
+  const adminListEl = document.getElementById('adminList');
+
+  // --- ELEMENT REFERENCES (promo) ---
+  const promoCode = document.getElementById('promoCode');
+  const promoType = document.getElementById('promoType');
+  const promoValue = document.getElementById('promoValue');
+  const promoScope = document.getElementById('promoScope');
+  const promoScopeValue = document.getElementById('promoScopeValue');
+  const promoMinHarga = document.getElementById('promoMinHarga');
+  const promoExpired = document.getElementById('promoExpired');
+  const promoLimit = document.getElementById('promoLimit');
+  const addPromoBtn = document.getElementById('addPromoBtn');
+  const clearPromoBtn = document.getElementById('clearPromoBtn');
+  const promoListEl = document.getElementById('promoList');
+  const scopeValueLabel = document.getElementById('scopeValueLabel');
+
+  function safeFormatRp(n){
+    try { return formatRp(parseInt(n,10)); } catch(e){ return n; }
+  }
+
+  // ---------- AUTH ----------
+  adminLoginBtn.addEventListener('click', () => {
+    const u = adminUser.value.trim();
+    const p = adminPass.value;
+    if (typeof loginAdmin === 'function' && loginAdmin(u, p)) {
+      authArea.style.display = 'none';
+      panelArea.style.display = 'block';
+      refreshAdminList();
+      refreshPromoList();
+      adminMsg.innerText = '';
+    } else {
+      adminMsg.innerText = 'Login gagal. Periksa username/password.';
+    }
+  });
+
+  logoutBtn.addEventListener('click', () => {
+    if (typeof logoutAdmin === 'function') logoutAdmin();
+    authArea.style.display = 'block';
+    panelArea.style.display = 'none';
+    adminUser.value = '';
+    adminPass.value = '';
+  });
+
+  // ---------- PRODUK: tambah / edit / hapus ----------
+  addProductBtn.addEventListener('click', () => {
+    const data = {
+      id: pKode.value.trim(),
+      nama: pNama.value.trim(),
+      kategori: pKategori.value,
+      harga: pHarga.value.trim(),
+      diskon: parseInt(pDiskon.value.trim() || '0'),
+      img: pImg.value.trim(),
+      deskripsi: pDesc.value.trim()
+    };
+    if (!data.id) { alert('Isi kode produk (unik).'); pKode.focus(); return; }
+
+    const ok = addOrUpdateProduct(data);
+    if (ok) {
+      refreshAdminList();
+      pKode.value = '';
+      pNama.value = '';
+      pHarga.value = '';
+      pDiskon.value = '';
+      pImg.value = '';
+      pDesc.value = '';
+      pKategori.value = 'pernikahan';
+      alert('Produk tersimpan.');
+    } else {
+      alert('Gagal. Pastikan Kode Produk unik dan terisi.');
+    }
+  });
+
+  function refreshAdminList() {
+    const list = getProducts();
+    const el = adminListEl;
+    el.innerHTML = '';
+
+    if (!list || list.length === 0) {
+      el.innerHTML = '<p>(Belum ada produk)</p>';
+      return;
+    }
+
+    list.forEach(p => {
+      const div = document.createElement('div');
+      div.className = 'admin-card';
+      const hargaText = safeFormatRp(p.harga);
+
+      div.innerHTML = `
+        <strong>${escapeHtml(p.id)}</strong> - ${escapeHtml(p.nama)} (${escapeHtml(p.kategori)}) <br>
+        Rp ${hargaText} 
+        ${p.diskon > 0 ? `<span style="color:#ff2d6f">(-${p.diskon}%)</span>` : ''}
+        <div style="margin-top:6px;">
+          <button class="btn btn-mini edit-btn" data-id="${escapeHtml(p.id)}">Edit</button>
+          <button class="btn btn-mini btn-danger delete-btn" data-id="${escapeHtml(p.id)}">Hapus</button>
+        </div>`;
+      el.appendChild(div);
+    });
+
+    el.querySelectorAll('.edit-btn').forEach(btn => {
+      btn.addEventListener('click', (ev) => {
+        const id = ev.currentTarget.getAttribute('data-id');
+        editProduct(id);
+      });
+    });
+    el.querySelectorAll('.delete-btn').forEach(btn => {
+      btn.addEventListener('click', (ev) => {
+        const id = ev.currentTarget.getAttribute('data-id');
+        deleteProduct(id);
+      });
+    });
+  }
+
+  window.editProduct = function(id) {
+    const p = findProductById(id);
+    if (!p) { alert('Produk tidak ditemukan.'); return; }
+
+    authArea.style.display = 'none';
+    panelArea.style.display = 'block';
+
+    pKode.value = p.id;
+    pNama.value = p.nama || '';
+    pKategori.value = p.kategori || 'pernikahan';
+    pHarga.value = parseHarga(p.harga) || '';
+    pDiskon.value = p.diskon || 0;
+    pImg.value = p.img || '';
+    pDesc.value = p.deskripsi || '';
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    pNama.focus();
+  };
+
+  window.deleteProduct = function(id) {
+    if (!confirm('Hapus produk ' + id + ' ? Tindakan ini tidak bisa dibatalkan.')) return;
+    removeProduct(id);
+    refreshAdminList();
+    alert('Produk ' + id + ' dihapus.');
+  };
+
+  // ---------- PROMO: tambah / edit / hapus ----------
+  // Clear form
+  function clearPromoForm(){
+    promoCode.value = '';
+    promoType.value = 'percent';
+    promoValue.value = '';
+    promoScope.value = 'all';
+    promoScopeValue.value = '';
+    promoMinHarga.value = '';
+    promoExpired.value = '';
+    promoLimit.value = '';
+    scopeValueLabel.innerText = 'Scope Value';
+  }
+
+  // adapt label saat scope berubah
+  promoScope.addEventListener('change', ()=>{
+    const v = promoScope.value;
+    if(v === 'all'){
+      scopeValueLabel.innerText = 'Scope Value (kosong untuk semua)';
+      promoScopeValue.placeholder = "Kosongkan jika semua";
+    } else if(v === 'category'){
+      scopeValueLabel.innerText = 'Scope Value (kategori)';
+      promoScopeValue.placeholder = "contoh: pernikahan";
+    } else {
+      scopeValueLabel.innerText = 'Scope Value (kode produk)';
+      promoScopeValue.placeholder = "contoh: SD-001";
+    }
+  });
+
+  addPromoBtn.addEventListener('click', ()=>{
+    const data = {
+      id: 'PROMO-' + (Math.random().toString(36).slice(2,8)).toUpperCase(),
+      code: (promoCode.value || '').trim().toUpperCase(),
+      type: promoType.value === 'nominal' ? 'nominal' : 'percent',
+      value: Number(promoValue.value) || 0,
+      scope: promoScope.value || 'all',
+      scopeValue: (promoScopeValue.value || '').trim(),
+      minHarga: Number(promoMinHarga.value) || 0,
+      expired: (promoExpired.value || '').trim(),
+      usageLimit: Number(promoLimit.value) || 0,
+      used: 0
+    };
+
+    if(!data.code){
+      alert('Isi kode promo (unik).');
+      promoCode.focus();
+      return;
+    }
+    if(data.value <= 0){
+      if(!confirm('Nilai diskon adalah 0 — yakin ingin menyimpan?')) return;
+    }
+
+    const ok = addOrUpdatePromo(data);
+    if(ok){
+      clearPromoForm();
+      refreshPromoList();
+      alert('Promo tersimpan.');
+    } else {
+      alert('Gagal menyimpan promo.');
+    }
+  });
+
+  clearPromoBtn.addEventListener('click', ()=>{
+    clearPromoForm();
+  });
+
+  function refreshPromoList(){
+    const promos = getPromos();
+    const el = promoListEl;
+    el.innerHTML = '';
+
+    if(!promos || promos.length === 0){
+      el.innerHTML = '<p>(Belum ada promo)</p>';
+      return;
+    }
+
+    promos.forEach(pr => {
+      const div = document.createElement('div');
+      div.className = 'admin-card';
+      const valLabel = pr.type === 'percent' ? pr.value + '%' : 'Rp ' + formatRp(pr.value);
+      const scopeLabel = pr.scope === 'all' ? 'Semua produk' : (pr.scope === 'category' ? `Kategori: ${escapeHtml(pr.scopeValue)}` : `Produk: ${escapeHtml(pr.scopeValue)}`);
+      const expiredNote = pr.expired ? ` | s.d. ${escapeHtml(pr.expired)}` : '';
+      const usageNote = pr.usageLimit && pr.usageLimit > 0 ? ` | ${pr.used || 0}/${pr.usageLimit} used` : '';
+
+      div.innerHTML = `
+        <strong>${escapeHtml(pr.code)}</strong> — ${valLabel} — ${scopeLabel} ${expiredNote} ${usageNote}
+        <div style="margin-top:8px;">
+          <button class="btn btn-mini promo-edit" data-code="${escapeHtml(pr.code)}">Edit</button>
+          <button class="btn btn-mini btn-danger promo-delete" data-code="${escapeHtml(pr.code)}">Hapus</button>
+        </div>
+      `;
+      el.appendChild(div);
+    });
+
+    el.querySelectorAll('.promo-edit').forEach(btn => {
+      btn.addEventListener('click', (ev) => {
+        const code = ev.currentTarget.getAttribute('data-code');
+        editPromo(code);
+      });
+    });
+    el.querySelectorAll('.promo-delete').forEach(btn => {
+      btn.addEventListener('click', (ev) => {
+        const code = ev.currentTarget.getAttribute('data-code');
+        deletePromo(code);
+      });
+    });
+  }
+
+  window.editPromo = function(code){
+    const pr = findPromoByCode(code);
+    if(!pr){ alert('Promo tidak ditemukan.'); return; }
+
+    // fill form with promo data
+    promoCode.value = pr.code || '';
+    promoType.value = pr.type || 'percent';
+    promoValue.value = pr.value || 0;
+    promoScope.value = pr.scope || 'all';
+    promoScopeValue.value = pr.scopeValue || '';
+    promoMinHarga.value = pr.minHarga || 0;
+    promoExpired.value = pr.expired || '';
+    promoLimit.value = pr.usageLimit || 0;
+
+    // scroll to top of panel and focus
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    promoValue.focus();
+  };
+
+  function deletePromo(code){
+    if(!confirm('Hapus promo ' + code + ' ?')) return;
+    removePromo(code);
+    refreshPromoList();
+    alert('Promo ' + code + ' dihapus.');
+  }
+
+  // ---------- INIT ----------
+  if (typeof isAdminLoggedIn === 'function' && isAdminLoggedIn()) {
+    authArea.style.display = 'none';
+    panelArea.style.display = 'block';
+    refreshAdminList();
+    refreshPromoList();
+  } else {
+    authArea.style.display = 'block';
+    panelArea.style.display = 'none';
+  }
+});
+  </script>
+</body>
+</html>

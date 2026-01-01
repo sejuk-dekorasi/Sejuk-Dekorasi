@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tentang - Sejuk Dekorasi</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <button id="burgerBtn" class="burger">☰</button>
+    <div class="brand">
+  <img src="logo.png" style="
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    object-fit:cover;
+  ">
+  Sejuk Dekorasi
+</div>
+
+    <div class="right-actions">
+      <a href="index.html" class="link">Beranda</a>
+    </div>
+  </header>
+
+  <nav id="sidebar" class="sidebar">
+    <a href="index.html">Beranda</a>
+    <a href="produk.html">Produk</a>
+    <a href="kontak.html">Kontak Person</a>
+    <a href="tentang.html">Tentang</a>
+    <div class="divider"></div>
+    <a href="admin.html" class="admin-link">Admin Panel</a>
+    <div class="serv-info">Melayani: <strong>Jawa Tengah</strong></div>
+  </nav>
+
+  <main class="container">
+    <h1>Tentang Sejuk Dekorasi</h1>
+    <p>Sejuk Dekorasi fokus menyediakan dekorasi acara berkualitas untuk pernikahan, ulang tahun, dan acara keluarga. Kami mengutamakan estetika, rapi, dan pelayanan personal khusus wilayah Jawa Tengah.</p>
+
+    <h3>Visi</h3>
+    <p>Mewujudkan momen berkesan lewat dekorasi yang penuh selera dan profesional.</p>
+
+    <h3>Misi</h3>
+    <ul>
+      <li>Menyajikan pilihan dekorasi variatif dan berkualitas.</li>
+      <li>Menyediakan layanan mudah lewat WhatsApp untuk pemesanan.</li>
+      <li>Melayani wilayah Jawa Tengah dengan cepat dan terpercaya.</li>
+    </ul>
+  </main>
+
+  <footer class="footer">
+    <small>© 2025 Sejuk Dekorasi — rrq onik hann#1945</small>
+  </footer>
+
+  <script>
+    document.getElementById('burgerBtn').addEventListener('click', ()=>{
+      document.getElementById('sidebar').classList.toggle('active');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kontak - Sejuk Dekorasi</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <button id="burgerBtn" class="burger">☰</button>
+   <div class="brand">
+  <img src="logo.png" style="
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    object-fit:cover;
+  ">
+  Sejuk Dekorasi
+</div>
+
+    <div class="right-actions">
+      <a href="index.html" class="link">Beranda</a>
+    </div>
+  </header>
+
+  <nav id="sidebar" class="sidebar">
+    <a href="index.html">Beranda</a>
+    <a href="produk.html">Produk</a>
+    <a href="kontak.html">Kontak Person</a>
+    <a href="tentang.html">Tentang</a>
+    <div class="divider"></div>
+    <a href="admin.html" class="admin-link">Admin Panel</a>
+    <div class="serv-info">Melayani: <strong>Jawa Tengah</strong></div>
+  </nav>
+
+  <main class="container">
+    <h1>Kontak Pemesanan</h1>
+
+    <p>Untuk memesan, silakan klik tombol WhatsApp di detail produk atau gunakan tombol di bawah.</p>
+
+    <a id="waGeneral" class="btn btn-primary" href="https://wa.me/6281390708425" target="_blank"><img src="wa.png" style="
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    object-fit:cover;
+  ">Pesan via WhatsApp Umum</a>
+
+    <h3>Alamat & Jadwal Layanan</h3>
+    <p>Melayani area: <strong>Jawa Tengah</strong></p>
+    <p>Jam kerja: Sesuai Pesanan</p>
+  </main>
+
+  <footer class="footer">
+    <small>© 2025 Sejuk Dekorasi</small>
+  </footer>
+
+  <script>
+    document.getElementById('burgerBtn').addEventListener('click', ()=>{
+      document.getElementById('sidebar').classList.toggle('active');
+    });
+  </script>
+
+
+</body>
+</html>
