@@ -474,6 +474,7 @@ function renderProducts() {
 
           <div class="card-body">
             <h4>${escapeHtml(p.nama)}</h4>
+            <p>${escapeHtml(p.kode || p.id || "")}</p>
 
             ${
               p.diskon > 0
