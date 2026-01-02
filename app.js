@@ -51,7 +51,7 @@ const DEFAULT_PRODUCTS = [
     kode: "D000",
     nama: "Custom",
     kategori: "lainnya",
-    harga: "0",
+    harga: "350000",
     diskon: 0,
     img: "",
     deskripsi: "Anda dapat mengirim gambar dekor yang anda mau ke admin whatsapp."
@@ -139,12 +139,47 @@ function renderProducts() {
   const target = document.getElementById("produkGrid");
   if (!target) return;
 
-  const list = getProducts();
+  let list = getProducts(); // ← tetap pakai localStorage + default
+
+  // === AMBIL FILTER DARI INPUT ===
+  const q = document.getElementById("searchBox")?.value.toLowerCase() || "";
+  const cat = document.getElementById("categoryFilter")?.value || "";
+  const min = parseInt(document.getElementById("minPrice")?.value || 0);
+  const max = parseInt(document.getElementById("maxPrice")?.value || 0);
+  const sort = document.getElementById("sortPrice")?.value || "";
+
+  // === SEARCH (nama / kode) ===
+  if (q) {
+    list = list.filter(p =>
+      p.nama.toLowerCase().includes(q) ||
+      p.kode.toLowerCase().includes(q)
+    );
+  }
+
+  // === FILTER KATEGORI ===
+  if (cat) {
+    list = list.filter(p => p.kategori === cat);
+  }
+
+  // === FILTER HARGA ===
+  if (min) list = list.filter(p => parseHarga(p.harga) >= min);
+  if (max) list = list.filter(p => parseHarga(p.harga) <= max);
+
+  // === SORTIR HARGA ===
+  if (sort === "asc") {
+    list.sort((a, b) => parseHarga(a.harga) - parseHarga(b.harga));
+  }
+  if (sort === "desc") {
+    list.sort((a, b) => parseHarga(b.harga) - parseHarga(a.harga));
+  }
+
+  // === JIKA KOSONG ===
   if (list.length === 0) {
-    target.innerHTML = "<p>Tidak ada produk.</p>";
+    target.innerHTML = "<p>Produk tidak ditemukan.</p>";
     return;
   }
 
+  // === RENDER (INI KODE LAMA KAMU, TIDAK DIUBAH) ===
   target.innerHTML = list.map(p => {
     const harga = parseHarga(p.harga);
     const diskon = p.diskon > 0 ? harga - harga * p.diskon / 100 : harga;
@@ -216,34 +251,3 @@ Halo, saya ingin memesan:
 ${tipe ? `- Tipe bunga: ${tipe.value}` : ""}
 ${req ? `- Request tambahan: ${req}` : ""}
 `.trim();
-
-    window.open(
-      `https://wa.me/6281390708425?text=${encodeURIComponent(pesan)}`,
-      "_blank"
-    );
-  };
-}
-
-/* ===========================================================
- *  ADMIN AUTH
- * =========================================================== */
-function loginAdmin(u, p) {
-  if (u === "admin" && p === "admin") {
-    localStorage.setItem("adminLogin", "1");
-    return true;
-  }
-  return false;
-}
-function isAdminLoggedIn() {
-  return localStorage.getItem("adminLogin") === "1";
-}
-
-/* ===========================================================
- *  INIT APP
- * =========================================================== */
-document.addEventListener("DOMContentLoaded", () => {
-  initProducts();
-  renderPreview();
-  renderProducts();
-  loadDetail();
-});
