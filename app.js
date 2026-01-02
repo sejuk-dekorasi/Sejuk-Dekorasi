@@ -87,7 +87,7 @@ function renderPreview() {
           <p>${escapeHtml(p.kode)}</p>
           <div class="price">Rp ${formatRp(finalHarga)}</div>
           <a href="detail.html?id=${p.id}" class="btn btn-primary" style="
-          text-align= "center";">Detail</a>
+          text-align= center;">Detail</a>
         </div>
       </div>`;
     })
