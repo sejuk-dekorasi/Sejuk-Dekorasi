@@ -966,6 +966,10 @@ textarea{
     width: 24px;
     height: 24px;
   }
+.card-body .btn {
+  display: block;
+  margin: 12px auto 0;
+  text-align: center;
 }
 
 
