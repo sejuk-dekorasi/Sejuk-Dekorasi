@@ -56,6 +56,16 @@ const DEFAULT_PRODUCTS = [
     img: "",
     deskripsi: "Anda dapat mengirim gambar dekor yang anda mau ke admin whatsapp."
   },
+  {
+    id: "D000",
+    kode: "D000",
+    nama: "Custom",
+    kategori: "lainnya",
+    harga: "350000",
+    diskon: 0,
+    img: "",
+    deskripsi: "Anda dapat mengirim gambar dekor yang anda mau ke admin whatsapp."
+  }
 ];
 
 /* ===========================================================
