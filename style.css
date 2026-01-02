@@ -211,6 +211,7 @@ textarea.input{ resize:vertical }
   margin-top: 20px;
   text-decoration: none;
   box-shadow: 0 3px 12px rgba(255,255,255,0.4);
+  text-align: center;
 }
 
 /* Kategori Style */
