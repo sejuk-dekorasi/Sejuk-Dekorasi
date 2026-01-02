@@ -28,7 +28,7 @@ const DEFAULT_PRODUCTS = [
     kode: "D000",
     nama: "Custom",
     kategori: "lainnya",
-    harga: "350000",
+    harga: "0",
     diskon: 0,
     img: "",
     deskripsi: "Anda dapat mengirim gambar dekor yang anda mau ke admin whatsapp."
