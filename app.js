@@ -154,9 +154,9 @@ function loadDetail() {
     <p>${escapeHtml(p.deskripsi)}</p>
 
     <b>Pilih Tipe Bunga</b><br>
-    <label><input type="radio" name="tipe" value="Bunga Asli"> Bunga Asli (+50.000)</label><br>
+    <label><input type="radio" name="tipe" value="Bunga Asli"> Bunga Asli (+harga)</label><br>
     <label><input type="radio" name="tipe" value="Bunga Palsu"> Bunga Palsu</label><br>
-    <label><input type="radio" name="tipe" value="Campuran"> Campuran (+25.000)</label><br><br>
+    <label><input type="radio" name="tipe" value="Campuran"> Campuran (+harga)</label><br><br>
 
     <textarea id="reqInput" placeholder="Request tambahan (opsional)"></textarea><br><br>
 
@@ -168,8 +168,8 @@ function loadDetail() {
     if (!tipe) return alert("Pilih tipe bunga dulu");
 
     let total = hargaFinal;
-    if (tipe.value === "Bunga Asli") total += 50000;
-    if (tipe.value === "Campuran") total += 25000;
+    if (tipe.value === "Bunga Asli") total += 0;
+    if (tipe.value === "Campuran") total += 0;
 
     const req = document.getElementById("reqInput").value.trim();
 
