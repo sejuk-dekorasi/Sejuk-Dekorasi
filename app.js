@@ -1,8 +1,6 @@
 /* ===========================================================
  *  UTILITAS
  * =========================================================== */
-let promoCountdownInterval = null;
-
 function escapeHtml(text) {
   if (!text) return "";
   return text
@@ -14,8 +12,7 @@ function escapeHtml(text) {
 }
 
 function formatRp(num) {
-  if (!num) num = 0;
-  return parseInt(num, 10).toLocaleString("id-ID");
+  return parseInt(num || 0, 10).toLocaleString("id-ID");
 }
 
 function parseHarga(h) {
@@ -23,23 +20,7 @@ function parseHarga(h) {
 }
 
 /* ===========================================================
- *  LOCAL STORAGE
- * =========================================================== */
-function getProducts() {
-  return JSON.parse(localStorage.getItem("products") || "[]");
-}
-function saveProducts(list) {
-  localStorage.setItem("products", JSON.stringify(list));
-}
-function getPromos() {
-  return JSON.parse(localStorage.getItem("promos") || "[]");
-}
-function savePromos(list) {
-  localStorage.setItem("promos", JSON.stringify(list));
-}
-
-/* ===========================================================
- *  DEFAULT PRODUCTS (ADMIN TAMBAH DI SINI)
+ *  DEFAULT PRODUCTS (SATU-SATUNYA SUMBER DATA)
  * =========================================================== */
 const DEFAULT_PRODUCTS = [
   {
@@ -51,76 +32,60 @@ const DEFAULT_PRODUCTS = [
     diskon: 0,
     img: "",
     deskripsi: "Anda dapat mengirim gambar dekor yang anda mau ke admin whatsapp."
-  },
+  }
 ];
 
 /* ===========================================================
- *  INIT PRODUCTS (ANTI HILANG)
+ *  SEARCH & FILTER
  * =========================================================== */
-function initProducts() {
-  const saved = getProducts();
+function getFilteredProducts() {
+  const keyword =
+    (document.getElementById("searchBox")?.value || "")
+      .toLowerCase()
+      .trim();
 
-  if (!saved || saved.length === 0) {
-    saveProducts(DEFAULT_PRODUCTS);
-    return;
-  }
+  const kategori =
+    (document.getElementById("categoryFilter")?.value || "")
+      .toLowerCase();
 
-  DEFAULT_PRODUCTS.forEach(p => {
-    if (!saved.find(x => x.id === p.id)) {
-      saved.push(p);
-    }
+  return DEFAULT_PRODUCTS.filter(p => {
+    const nama = String(p.nama || "").toLowerCase();
+    const kode = String(p.kode || "").toLowerCase();
+    const kat  = String(p.kategori || "").toLowerCase();
+
+    const matchKeyword =
+      !keyword || nama.includes(keyword) || kode.includes(keyword);
+
+    const matchKategori =
+      !kategori || kat === kategori;
+
+    return matchKeyword && matchKategori;
   });
-
-  saveProducts(saved);
 }
 
 /* ===========================================================
- *  PRODUCT FUNCTIONS
- * =========================================================== */
-function findProductById(id) {
-  return getProducts().find(p => p.id === id);
-}
-
-function addOrUpdateProduct(p) {
-  const list = getProducts();
-  const exist = list.find(x => x.id === p.id);
-  if (exist) Object.assign(exist, p);
-  else list.push(p);
-  saveProducts(list);
-}
-
-function removeProduct(id) {
-  saveProducts(getProducts().filter(p => p.id !== id));
-}
-
-/* ===========================================================
- *  PROMO (SINGKAT – TETAP KOMPATIBEL)
- * =========================================================== */
-function findPromoByCode(code) {
-  return getPromos().find(p => p.code === code);
-}
-
-/* ===========================================================
- *  RENDER PREVIEW
+ *  RENDER PREVIEW (HOME)
  * =========================================================== */
 function renderPreview() {
   const target = document.getElementById("previewGrid");
   if (!target) return;
 
-  target.innerHTML = getProducts()
+  target.innerHTML = DEFAULT_PRODUCTS
     .slice(0, 6)
     .map(p => {
       const harga = parseHarga(p.harga);
-      const diskon = p.diskon > 0 ? harga - harga * p.diskon / 100 : harga;
+      const finalHarga = p.diskon
+        ? Math.round(harga - harga * p.diskon / 100)
+        : harga;
 
       return `
       <div class="card">
         ${p.diskon ? `<span class="tag-diskon">-${p.diskon}%</span>` : ""}
-        <img src="${p.img}" class="card-img">
+        <img src="${p.img || "img/no-image.png"}" class="card-img">
         <div class="card-body">
-          <h4>${p.nama}</h4>
-          <p>${p.kode}</p>
-          <div class="price">Rp ${formatRp(diskon)}</div>
+          <h4>${escapeHtml(p.nama)}</h4>
+          <p>${escapeHtml(p.kode)}</p>
+          <div class="price">Rp ${formatRp(finalHarga)}</div>
           <a href="detail.html?id=${p.id}" class="btn btn-primary">Detail</a>
         </div>
       </div>`;
@@ -135,7 +100,8 @@ function renderProducts() {
   const target = document.getElementById("produkGrid");
   if (!target) return;
 
-  const list = getProducts();
+  const list = getFilteredProducts();
+
   if (list.length === 0) {
     target.innerHTML = "<p>Tidak ada produk.</p>";
     return;
@@ -143,16 +109,18 @@ function renderProducts() {
 
   target.innerHTML = list.map(p => {
     const harga = parseHarga(p.harga);
-    const diskon = p.diskon > 0 ? harga - harga * p.diskon / 100 : harga;
+    const finalHarga = p.diskon
+      ? Math.round(harga - harga * p.diskon / 100)
+      : harga;
 
     return `
     <div class="card">
       ${p.diskon ? `<span class="tag-diskon">-${p.diskon}%</span>` : ""}
-      <img src="${p.img}" class="card-img">
+      <img src="${p.img || "img/no-image.png"}" class="card-img">
       <div class="card-body">
-        <h4>${p.nama}</h4>
-        <p>${p.kode}</p>
-        <div class="price">Rp ${formatRp(diskon)}</div>
+        <h4>${escapeHtml(p.nama)}</h4>
+        <p>${escapeHtml(p.kode)}</p>
+        <div class="price">Rp ${formatRp(finalHarga)}</div>
         <a href="detail.html?id=${p.id}" class="btn btn-primary">Detail</a>
       </div>
     </div>`;
@@ -167,7 +135,7 @@ function loadDetail() {
   if (!target) return;
 
   const id = new URLSearchParams(window.location.search).get("id");
-  const p = findProductById(id);
+  const p = DEFAULT_PRODUCTS.find(x => x.id === id);
 
   if (!p) {
     target.innerHTML = "<p>Produk tidak ditemukan.</p>";
@@ -175,71 +143,61 @@ function loadDetail() {
   }
 
   const harga = parseHarga(p.harga);
-  const diskon = p.diskon > 0 ? harga - harga * p.diskon / 100 : harga;
+  const hargaFinal = p.diskon
+    ? Math.round(harga - harga * p.diskon / 100)
+    : harga;
 
   target.innerHTML = `
-    <img src="${p.img}" class="detail-img">
-    <h2>${p.nama}</h2>
-    <div class="price">Rp ${formatRp(diskon)}</div>
-    <p>${p.deskripsi}</p>
+    <img src="${p.img || "img/no-image.png"}" class="detail-img">
+    <h2>${escapeHtml(p.nama)}</h2>
+    <div class="price">Rp ${formatRp(hargaFinal)}</div>
+    <p>${escapeHtml(p.deskripsi)}</p>
 
-    <div class="tipe-box" style="margin-top:12px;">
-      <b>Pilih Tipe Bunga</b><br>
-      <label><input type="radio" name="tipeBunga" value="Bunga Asli"> Bunga Asli (+harga)</label><br>
-      <label><input type="radio" name="tipeBunga" value="Bunga Palsu"> Bunga Palsu</label><br>
-      <label><input type="radio" name="tipeBunga" value="Campuran"> Campuran (+harga)</label>
-    </div>
+    <b>Pilih Tipe Bunga</b><br>
+    <label><input type="radio" name="tipe" value="Bunga Asli"> Bunga Asli (+50.000)</label><br>
+    <label><input type="radio" name="tipe" value="Bunga Palsu"> Bunga Palsu</label><br>
+    <label><input type="radio" name="tipe" value="Campuran"> Campuran (+25.000)</label><br><br>
 
-    <div class="reqBox" style="margin-top:10px;">
-      <b>Request Tambahan</b>
-      <textarea id="reqInput" placeholder="Tulis request tambahan (opsional)"></textarea>
-    </div>
+    <textarea id="reqInput" placeholder="Request tambahan (opsional)"></textarea><br><br>
 
-    <button id="pesanBtn" class="btn btn-primary" style="margin-top:12px;">
-      Pesan via WhatsApp
-    </button>
+    <button id="pesanBtn" class="btn btn-primary">Pesan via WhatsApp</button>
   `;
 
   document.getElementById("pesanBtn").onclick = () => {
-    const tipe = document.querySelector('input[name="tipeBunga"]:checked');
+    const tipe = document.querySelector('input[name="tipe"]:checked');
+    if (!tipe) return alert("Pilih tipe bunga dulu");
+
+    let total = hargaFinal;
+    if (tipe.value === "Bunga Asli") total += 50000;
+    if (tipe.value === "Campuran") total += 25000;
+
     const req = document.getElementById("reqInput").value.trim();
 
-    const pesan = `
-Halo, saya ingin memesan:
-- Produk: ${p.nama}
-- Kode: ${p.id}
-- Harga: Rp ${formatRp(diskon)}
-${tipe ? `- Tipe bunga: ${tipe.value}` : ""}
-${req ? `- Request tambahan: ${req}` : ""}
-`.trim();
+    /* ===============================
+     *  FORMAT PESAN WA (FIX FINAL)
+     * =============================== */
+    let pesan = "Halo, saya ingin memesan:%0A";
+    pesan += `- Produk: ${p.nama}%0A`;
+    pesan += `- Kode: ${p.kode}%0A`;
+    pesan += `- Harga: Rp ${formatRp(total)}%0A`;
+    pesan += `- Tipe: ${tipe.value}`;
+    if (req) pesan += `%0A- Request: ${req}`;
 
     window.open(
-      `https://wa.me/6281390708425?text=${encodeURIComponent(pesan)}`,
+      `https://wa.me/6281390708425?text=${pesan}`,
       "_blank"
     );
   };
 }
 
 /* ===========================================================
- *  ADMIN AUTH
- * =========================================================== */
-function loginAdmin(u, p) {
-  if (u === "admin" && p === "admin") {
-    localStorage.setItem("adminLogin", "1");
-    return true;
-  }
-  return false;
-}
-function isAdminLoggedIn() {
-  return localStorage.getItem("adminLogin") === "1";
-}
-
-/* ===========================================================
- *  INIT APP
+ *  INIT
  * =========================================================== */
 document.addEventListener("DOMContentLoaded", () => {
-  initProducts();
   renderPreview();
   renderProducts();
   loadDetail();
+
+  document.getElementById("searchBox")?.addEventListener("input", renderProducts);
+  document.getElementById("categoryFilter")?.addEventListener("change", renderProducts);
 });
