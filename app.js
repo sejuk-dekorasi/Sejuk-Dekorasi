@@ -32,16 +32,6 @@ const DEFAULT_PRODUCTS = [
     diskon: 0,
     img: "",
     deskripsi: "Anda dapat mengirim gambar dekor yang anda mau ke admin whatsapp."
-  },
-  {
-    id: "D001",
-    kode: "D001",
-    nama: "Sejuk",
-    kategori: "pernikahan",
-    harga: "1800000",
-    diskon: 5,
-    img: "",
-    deskripsi: "anda bisa memesan."
   }
 ];
 
