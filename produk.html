@@ -51,18 +51,6 @@
         <option value="lainnya">Lainnya</option>
       </select>
 
-      <div class="price-group">
-        <input id="minPrice" type="number" class="control-input price-input" placeholder="Harga min (Rp)" min="0" />
-        <span class="price-sep"></span>
-        <input id="maxPrice" type="number" class="control-input price-input" placeholder="Harga max (Rp)" min="0" />
-      </div>
-
-      <!-- SORTIR HARGA (BARU, TIDAK MENGGANGGU STRUKTUR YANG ADA) -->
-      <select id="sortPrice" class="control-select">
-        <option value="">Sortir Harga</option>
-        <option value="asc">Harga Termurah</option>
-        <option value="desc">Harga Termahal</option>
-      </select>
 
       <div class="controls-actions">
         <button id="clearFilters" class="btn ghost">Reset</button>
@@ -88,24 +76,15 @@
     // DOM references
     const searchBox = document.getElementById('searchBox');
     const categoryFilter = document.getElementById('categoryFilter');
-    const minPrice = document.getElementById('minPrice');
-    const maxPrice = document.getElementById('maxPrice');
-    const sortPrice = document.getElementById('sortPrice');
     const clearBtn = document.getElementById('clearFilters');
 
     // bind events
     searchBox.addEventListener('input', ()=> renderProducts());
     categoryFilter.addEventListener('change', ()=> renderProducts());
-    minPrice.addEventListener('input', ()=> renderProducts());
-    maxPrice.addEventListener('input', ()=> renderProducts());
-    sortPrice.addEventListener('change', ()=> renderProducts());
 
     clearBtn.addEventListener('click', ()=>{
       searchBox.value = '';
       categoryFilter.value = '';
-      minPrice.value = '';
-      maxPrice.value = '';
-      sortPrice.value = '';
       renderProducts();
     });
 
