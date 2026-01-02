@@ -173,9 +173,9 @@ function loadDetail() {
     <p>${escapeHtml(p.deskripsi)}</p>
 
     <b>Pilih Tipe Bunga</b><br>
-    <label><input type="radio" name="tipe" value="Bunga Asli"> Bunga Asli (+harga)</label><br>
+    <label><input type="radio" name="tipe" value="Bunga Asli"> Bunga Asli +harga</label><br>
     <label><input type="radio" name="tipe" value="Bunga Palsu"> Bunga Palsu </label><br>
-    <label><input type="radio" name="tipe" value="Campuran"> Campuran (+harga)</label><br><br>
+    <label><input type="radio" name="tipe" value="Campuran"> Campuran +harga</label><br><br>
 
     <textarea id="reqInput" placeholder="Request tambahan (opsional)"></textarea><br><br>
 
