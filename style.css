@@ -539,7 +539,7 @@ textarea.input{ resize:vertical }
 .btn{
     text-align:center;
 }
-.reqBox{
+.reqBox,.tipe-bunga,.item-tambahan{
     background: linear-gradient(135deg, #7f00ff, #005eff, #ff0033);
     padding: 12px;
     border-radius: 12px;
