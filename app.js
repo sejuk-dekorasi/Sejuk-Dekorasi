@@ -206,7 +206,7 @@ di RUMAH<br><br>
   },
   {
     id: "SJ02",
-    kode: "SJ012",
+    kode: "SJ02",
     nama: "Dekorasi Pernikahan",
     kategori: "pernikahan",
     harga: "0",
@@ -251,46 +251,6 @@ di RUMAH<br><br>
     kategori: "pernikahan",
     harga: "0",
     img: "sj03.png",
-    deskripsi: `
-<b>ITEM :</b>
-<ol>
-  <li>Backdrop pelaminan 6m</li>
-  <li>Set kursi pelaminan</li>
-  <li>Welcome gate</li>
-  <li>Welcome sign</li>
-  <li>Mini garden</li>
-  <li>Standing flower</li>
-  <li>Karpet jalan</li>
-  <li>Lighting standar dekor</li>
-  <li>Fresh flower + artificial</li>
-</ol>
-
-<b><strong>FREE</strong> :</b>
-<ol>
-  <li>Kain backdrop pelaminan</li>
-  <li>Karpet pelaminan</li>
-  <li>Kain cover meja kado</li>
-</ol>
-
-<b>DEKORASI MODERN</b><br>
-<b>Price List :</b><br>
-Dekorasi Akad + Resepsi<br>
-di RUMAH<br><br>
-<b>NOTED :<b>
-<ol>
-<li>Pemesanan wajib DP.
-<li>Pembatalan pemesanan sepihak dari customer,dp dianggap hangus.</li>
-<li>Bersedia di up di socialmedia.</li>
-<li>Tambahan biaya jika jarak lebih dari 3km</li>
-</ol>`
-  },
-  {
-    id: "SJ04",
-    kode: "SJ04",
-    nama: "Dekorasi Pernikahan",
-    kategori: "pernikahan",
-    harga: "0",
-    img: "sj04.png",
     deskripsi: `
 <b>ITEM :</b>
 <ol>
