@@ -971,7 +971,53 @@ textarea{
   margin: 12px auto 0;
   text-align: center;
 }
+.item-tambahan {
+  margin: 20px 0;
+}
 
+.item-tambahan b {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.item-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 12px;
+  margin-bottom: 10px;   /* INI YANG NGASIH JARAK */
+
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  cursor: pointer;
+
+  font-size: 14px;
+  background: #fff;
+}
+
+.item-box:last-child {
+  margin-bottom: 0;
+}
+
+.item-box input {
+  transform: scale(1.15);
+}
+
+.item-nama {
+  flex: 1;
+  font-weight: 500;
+}
+
+.item-harga {
+  font-size: 12px;
+  color: #777;
+  white-space: nowrap;
+}
+
+.item-box:hover {
+  background: #f9f9f9;
+}
 
 
 }
