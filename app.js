@@ -68,7 +68,8 @@
       background: rgba(255,255,255,.25);
     }
 
-    #tanggalAcara {
+    #tanggalAcara,
+    #lokasiAcara {
       width: 100%;
       padding: 12px;
       border-radius: 12px;
@@ -82,6 +83,7 @@
         rgba(255,0,120,.4)
       );
       box-shadow: 0 8px 20px rgba(128,0,255,.35);
+      margin-top: 6px;
     }
 
     @keyframes notifFade {
@@ -110,7 +112,7 @@ function parseHarga(h) {
 }
 
 /* ===========================================================
- *  POPUP & NOTIF (TAMBAHAN)
+ *  POPUP & NOTIF
  * =========================================================== */
 function showNotif(message) {
   const o = document.createElement("div");
@@ -150,7 +152,7 @@ function showConfirm(text, onYes) {
 }
 
 /* ===========================================================
- *  DEFAULT PRODUCTS (SATU-SATUNYA SUMBER DATA)
+ *  DATA PRODUK
  * =========================================================== */
 const DEFAULT_PRODUCTS = [
   {
@@ -165,7 +167,7 @@ const DEFAULT_PRODUCTS = [
 ];
 
 /* ===========================================================
- *  SEARCH & FILTER (TANPA HARGA)
+ *  SEARCH & FILTER
  * =========================================================== */
 function getFilteredProducts() {
   const keyword =
@@ -182,24 +184,19 @@ function getFilteredProducts() {
     const kode = String(p.kode || "").toLowerCase();
     const kat  = String(p.kategori || "").toLowerCase();
 
-    const matchKeyword =
-      !keyword || nama.includes(keyword) || kode.includes(keyword);
-
-    const matchKategori =
-      !kategori || kat === kategori;
-
-    return matchKeyword && matchKategori;
+    return (!keyword || nama.includes(keyword) || kode.includes(keyword)) &&
+           (!kategori || kat === kategori);
   });
 }
 
 /* ===========================================================
- *  RENDER PREVIEW (HOME)
+ *  RENDER PREVIEW
  * =========================================================== */
 function renderPreview() {
   const target = document.getElementById("previewGrid");
   if (!target) return;
 
-  target.innerHTML = DEFAULT_PRODUCTS.slice(0, 6).map(p => `
+  target.innerHTML = DEFAULT_PRODUCTS.map(p => `
     <div class="card">
       <img src="${p.img}" class="card-img">
       <div class="card-body">
@@ -217,14 +214,14 @@ function renderPreview() {
 }
 
 /* ===========================================================
- *  RENDER PRODUCT LIST
+ *  RENDER LIST
  * =========================================================== */
 function renderProducts() {
   const target = document.getElementById("produkGrid");
   if (!target) return;
 
   const list = getFilteredProducts();
-  if (list.length === 0) {
+  if (!list.length) {
     target.innerHTML = "<p>Tidak ada produk.</p>";
     return;
   }
@@ -247,13 +244,13 @@ function renderProducts() {
 }
 
 /* ===========================================================
- *  DETAIL PAGE
+ *  DETAIL PAGE + TANGGAL + LOKASI
  * =========================================================== */
 function loadDetail() {
   const target = document.getElementById("detailContainer");
   if (!target) return;
 
-  const id = new URLSearchParams(window.location.search).get("id");
+  const id = new URLSearchParams(location.search).get("id");
   const p = DEFAULT_PRODUCTS.find(x => x.id === id);
   if (!p) return;
 
@@ -267,10 +264,13 @@ function loadDetail() {
     <label><input type="radio" name="tipe" value="Bunga Palsu"> Bunga Palsu</label><br>
     <label><input type="radio" name="tipe" value="Campuran"> Campuran</label><br><br>
 
-    <b>Tanggal Acara</b><br>
-    <input type="date" id="tanggalAcara"><br><br>
+    <b>Tanggal Acara</b>
+    <input type="date" id="tanggalAcara">
 
-    <textarea id="reqInput" placeholder="Request tambahan (opsional)"></textarea><br><br>
+    <b>Lokasi Acara</b>
+    <input type="text" id="lokasiAcara" placeholder="Contoh: Bekasi – Gedung Serbaguna">
+
+    <textarea id="reqInput" placeholder="Request tambahan (opsional)"></textarea><br>
 
     <button id="pesanBtn" class="btn btn-primary">Sepakati Harga</button>
   `;
@@ -278,8 +278,12 @@ function loadDetail() {
   document.getElementById("pesanBtn").onclick = () => {
     const tipe = document.querySelector('input[name="tipe"]:checked');
     if (!tipe) return showNotif("Pilih tipe bunga dulu");
+
     const tanggal = document.getElementById("tanggalAcara").value;
     if (!tanggal) return showNotif("Pilih tanggal acara dulu");
+
+    const lokasi = document.getElementById("lokasiAcara").value.trim();
+    if (!lokasi) return showNotif("Isi lokasi acara dulu");
 
     const req = document.getElementById("reqInput").value.trim();
 
@@ -288,6 +292,7 @@ Produk   : ${p.nama}
 Kode     : ${p.kode}
 Tipe     : ${tipe.value}
 Tanggal  : ${tanggal}
+Lokasi   : ${lokasi}
 ${req ? `Request : ${req}` : ""}
 
 Mohon untuk memberikan harga terbaik,
@@ -300,6 +305,7 @@ agar bisa kita sepakati bersama.
       pesan += `Kode: ${p.kode}%0A`;
       pesan += `Tipe: ${tipe.value}%0A`;
       pesan += `Tanggal: ${tanggal}%0A`;
+      pesan += `Lokasi: ${lokasi}%0A`;
       if (req) pesan += `Request: ${req}%0A`;
       pesan += `%0AMohon harga terbaik agar bisa kita sepakati.%0ATerima kasih`;
 
