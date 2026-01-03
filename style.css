@@ -973,6 +973,8 @@ textarea{
 }
 .item-tambahan {
   margin: 20px 0;
+  color: #000;
+  background-color: #005eff;
 }
 
 .item-tambahan b {
@@ -988,12 +990,11 @@ textarea{
   padding: 10px 12px;
   margin-bottom: 10px;   /* INI YANG NGASIH JARAK */
 
-  border: 1px solid #e0e0e0;
+  border: 1px solid #000;
   border-radius: 10px;
   cursor: pointer;
 
   font-size: 14px;
-  background: #fff;
 }
 
 .item-box:last-child {
@@ -1015,8 +1016,20 @@ textarea{
   white-space: nowrap;
 }
 
-.item-box:hover {
-  background: #f9f9f9;
+}
+.item-tambahan {
+color: black;
+}
+.item-box {
+  color: #000;              /* paksa teks hitam */
+}
+
+.item-nama {
+  color: #000;
+}
+
+.item-harga {
+  color: #000;              /* harga juga hitam */
 }
 
 
