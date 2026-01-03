@@ -300,7 +300,8 @@ agar bisa kita sepakati bersama.
     `.trim();
 
     showConfirm(preview, () => {
-      let pesan = "Halo Admin,%0A%0A";
+      let pesan = "Halo Admin,%0A";
+      pesan += `Saya menginginkan:%0A`;
       pesan += `Produk: ${p.nama}%0A`;
       pesan += `Kode: ${p.kode}%0A`;
       pesan += `Tipe: ${tipe.value}%0A`;
@@ -308,7 +309,6 @@ agar bisa kita sepakati bersama.
       pesan += `Lokasi: ${lokasi}%0A`;
       if (req) pesan += `Request: ${req}%0A`;
       pesan += `%0AMohon harga terbaik agar bisa kita sepakati.%0ATerima kasih`;
-
       window.open(`https://wa.me/6281390708425?text=${pesan}`, "_blank");
     });
   };
