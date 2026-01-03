@@ -162,7 +162,16 @@ const DEFAULT_PRODUCTS = [
     kategori: "lainnya",
     harga: "0",
     img: "custom.png",
-    deskripsi: "Anda dapat mengirim gambar dekor yang anda mau ke admin whatsapp."
+    deskripsi: `
+<b>Anda dapat memberikan gambar dekorasi kepada admin</b><br>
+<br>
+<b>NOTED :<b>
+<ol>
+<li>Pemesanan wajib DP.
+<li>Pembatalan pemesanan sepihak dari customer,dp dianggap hangus.</li>
+<li>Bersedia di up di socialmedia.</li>
+<li>Tambahan biaya jika jarak lebih dari 3km</li>
+</ol>`
   },
   {
     id: "SJ01",
