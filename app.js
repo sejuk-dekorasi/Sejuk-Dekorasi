@@ -156,15 +156,376 @@ function showConfirm(text, onYes) {
  * =========================================================== */
 const DEFAULT_PRODUCTS = [
   {
-    id: "D000",
-    kode: "D000",
+    id: "SJ00",
+    kode: "SJ00",
     nama: "Custom",
     kategori: "lainnya",
     harga: "0",
     img: "custom.png",
     deskripsi: "Anda dapat mengirim gambar dekor yang anda mau ke admin whatsapp."
-  }
+  },
+  {
+    id: "SJ01",
+    kode: "SJ01",
+    nama: "Dekorasi Pernikahan",
+    kategori: "pernikahan",
+    harga: "0",
+    img: "sj01.png",
+    deskripsi: `
+<b>ITEM :</b>
+<ol>
+  <li>Backdrop pelaminan 6m</li>
+  <li>Set kursi pelaminan</li>
+  <li>Welcome gate</li>
+  <li>Welcome sign</li>
+  <li>Mini garden</li>
+  <li>Standing flower</li>
+  <li>Karpet jalan</li>
+  <li>Lighting standar dekor</li>
+  <li>Fresh flower + artificial</li>
+</ol>
+
+<b><strong>FREE</strong> :</b>
+<ol>
+  <li>Kain backdrop pelaminan</li>
+  <li>Karpet pelaminan</li>
+  <li>Kain cover meja kado</li>
+</ol>
+
+<b>DEKORASI MODERN</b><br>
+<b>Price List :</b><br>
+Dekorasi Akad + Resepsi<br>
+di RUMAH<br><br>
+<b>NOTED :<b>
+<ol>
+<li>Pemesanan wajib DP.
+<li>Pembatalan pemesanan sepihak dari customer,dp dianggap hangus.</li>
+<li>Bersedia di up di socialmedia.</li>
+<li>Tambahan biaya jika jarak lebih dari 3km</li>
+</ol>`
+  },
+  {
+    id: "SJ02",
+    kode: "SJ012",
+    nama: "Dekorasi Pernikahan",
+    kategori: "pernikahan",
+    harga: "0",
+    img: "sj02.png",
+    deskripsi: `
+<b>ITEM :</b>
+<ol>
+  <li>Backdrop pelaminan 6m</li>
+  <li>Set kursi pelaminan</li>
+  <li>Welcome gate</li>
+  <li>Welcome sign</li>
+  <li>Mini garden</li>
+  <li>Standing flower</li>
+  <li>Karpet jalan</li>
+  <li>Lighting standar dekor</li>
+  <li>Fresh flower + artificial</li>
+</ol>
+
+<b><strong>FREE</strong> :</b>
+<ol>
+  <li>Kain backdrop pelaminan</li>
+  <li>Karpet pelaminan</li>
+  <li>Kain cover meja kado</li>
+</ol>
+
+<b>DEKORASI MODERN</b><br>
+<b>Price List :</b><br>
+Dekorasi Akad + Resepsi<br>
+di RUMAH<br><br>
+<b>NOTED :<b>
+<ol>
+<li>Pemesanan wajib DP.
+<li>Pembatalan pemesanan sepihak dari customer,dp dianggap hangus.</li>
+<li>Bersedia di up di socialmedia.</li>
+<li>Tambahan biaya jika jarak lebih dari 3km</li>
+</ol>`
+  },
+  {
+    id: "SJ03",
+    kode: "SJ03",
+    nama: "Dekorasi Pernikahan",
+    kategori: "pernikahan",
+    harga: "0",
+    img: "sj03.png",
+    deskripsi: `
+<b>ITEM :</b>
+<ol>
+  <li>Backdrop pelaminan 6m</li>
+  <li>Set kursi pelaminan</li>
+  <li>Welcome gate</li>
+  <li>Welcome sign</li>
+  <li>Mini garden</li>
+  <li>Standing flower</li>
+  <li>Karpet jalan</li>
+  <li>Lighting standar dekor</li>
+  <li>Fresh flower + artificial</li>
+</ol>
+
+<b><strong>FREE</strong> :</b>
+<ol>
+  <li>Kain backdrop pelaminan</li>
+  <li>Karpet pelaminan</li>
+  <li>Kain cover meja kado</li>
+</ol>
+
+<b>DEKORASI MODERN</b><br>
+<b>Price List :</b><br>
+Dekorasi Akad + Resepsi<br>
+di RUMAH<br><br>
+<b>NOTED :<b>
+<ol>
+<li>Pemesanan wajib DP.
+<li>Pembatalan pemesanan sepihak dari customer,dp dianggap hangus.</li>
+<li>Bersedia di up di socialmedia.</li>
+<li>Tambahan biaya jika jarak lebih dari 3km</li>
+</ol>`
+  },
+  {
+    id: "SJ04",
+    kode: "SJ04",
+    nama: "Dekorasi Pernikahan",
+    kategori: "pernikahan",
+    harga: "0",
+    img: "sj04.png",
+    deskripsi: `
+<b>ITEM :</b>
+<ol>
+  <li>Backdrop pelaminan 6m</li>
+  <li>Set kursi pelaminan</li>
+  <li>Welcome gate</li>
+  <li>Welcome sign</li>
+  <li>Mini garden</li>
+  <li>Standing flower</li>
+  <li>Karpet jalan</li>
+  <li>Lighting standar dekor</li>
+  <li>Fresh flower + artificial</li>
+</ol>
+
+<b><strong>FREE</strong> :</b>
+<ol>
+  <li>Kain backdrop pelaminan</li>
+  <li>Karpet pelaminan</li>
+  <li>Kain cover meja kado</li>
+</ol>
+
+<b>DEKORASI MODERN</b><br>
+<b>Price List :</b><br>
+Dekorasi Akad + Resepsi<br>
+di RUMAH<br><br>
+<b>NOTED :<b>
+<ol>
+<li>Pemesanan wajib DP.
+<li>Pembatalan pemesanan sepihak dari customer,dp dianggap hangus.</li>
+<li>Bersedia di up di socialmedia.</li>
+<li>Tambahan biaya jika jarak lebih dari 3km</li>
+</ol>`
+  },
+  {
+    id: "SJ04",
+    kode: "SJ04",
+    nama: "Dekorasi Pernikahan",
+    kategori: "pernikahan",
+    harga: "0",
+    img: "sj04.png",
+    deskripsi: `
+<b>ITEM :</b>
+<ol>
+  <li>Backdrop pelaminan 6m</li>
+  <li>Set kursi pelaminan</li>
+  <li>Welcome gate</li>
+  <li>Welcome sign</li>
+  <li>Mini garden</li>
+  <li>Standing flower</li>
+  <li>Karpet jalan</li>
+  <li>Lighting standar dekor</li>
+  <li>Fresh flower + artificial</li>
+</ol>
+
+<b><strong>FREE</strong> :</b>
+<ol>
+  <li>Kain backdrop pelaminan</li>
+  <li>Karpet pelaminan</li>
+  <li>Kain cover meja kado</li>
+</ol>
+
+<b>DEKORASI MODERN</b><br>
+<b>Price List :</b><br>
+Dekorasi Akad + Resepsi<br>
+di RUMAH<br><br>
+<b>NOTED :<b>
+<ol>
+<li>Pemesanan wajib DP.
+<li>Pembatalan pemesanan sepihak dari customer,dp dianggap hangus.</li>
+<li>Bersedia di up di socialmedia.</li>
+<li>Tambahan biaya jika jarak lebih dari 3km</li>
+</ol>`
+  },
+  {
+    id: "SJ05",
+    kode: "SJ05",
+    nama: "Dekorasi Pernikahan",
+    kategori: "pernikahan",
+    harga: "0",
+    img: "sj05.png",
+    deskripsi: `
+<b>ITEM :</b>
+<ol>
+  <li>Backdrop pelaminan 6m</li>
+  <li>Set kursi pelaminan</li>
+  <li>Welcome gate</li>
+  <li>Welcome sign</li>
+  <li>Mini garden</li>
+  <li>Standing flower</li>
+  <li>Karpet jalan</li>
+  <li>Lighting standar dekor</li>
+  <li>Fresh flower + artificial</li>
+</ol>
+
+<b><strong>FREE</strong> :</b>
+<ol>
+  <li>Kain backdrop pelaminan</li>
+  <li>Karpet pelaminan</li>
+  <li>Kain cover meja kado</li>
+</ol>
+
+<b>DEKORASI MODERN</b><br>
+<b>Price List :</b><br>
+Dekorasi Akad + Resepsi<br>
+di RUMAH<br><br>
+<b>NOTED :<b>
+<ol>
+<li>Pemesanan wajib DP.
+<li>Pembatalan pemesanan sepihak dari customer,dp dianggap hangus.</li>
+<li>Bersedia di up di socialmedia.</li>
+<li>Tambahan biaya jika jarak lebih dari 3km</li>
+</ol>`
+  },
+  {
+    id: "SJ06",
+    kode: "SJ06",
+    nama: "Dekorasi Pernikahan",
+    kategori: "pernikahan",
+    harga: "0",
+    img: "sj06.png",
+    deskripsi: `
+<b>ITEM :</b>
+<ol>
+  <li>Backdrop pelaminan 6m</li>
+  <li>Set kursi pelaminan</li>
+  <li>Welcome gate</li>
+  <li>Welcome sign</li>
+  <li>Mini garden</li>
+  <li>Standing flower</li>
+  <li>Karpet jalan</li>
+  <li>Lighting standar dekor</li>
+  <li>Fresh flower + artificial</li>
+</ol>
+
+<b><strong>FREE</strong> :</b>
+<ol>
+  <li>Kain backdrop pelaminan</li>
+  <li>Karpet pelaminan</li>
+  <li>Kain cover meja kado</li>
+</ol>
+
+<b>DEKORASI MODERN</b><br>
+<b>Price List :</b><br>
+Dekorasi Akad + Resepsi<br>
+di RUMAH<br><br>
+<b>NOTED :<b>
+<ol>
+<li>Pemesanan wajib DP.
+<li>Pembatalan pemesanan sepihak dari customer,dp dianggap hangus.</li>
+<li>Bersedia di up di socialmedia.</li>
+<li>Tambahan biaya jika jarak lebih dari 3km</li>
+</ol>`
+  },
+  {
+    id: "SJ07",
+    kode: "SJ07",
+    nama: "Dekorasi Pernikahan",
+    kategori: "pernikahan",
+    harga: "0",
+    img: "sj07.png",
+    deskripsi: `
+<b>ITEM :</b>
+<ol>
+  <li>Backdrop pelaminan 6m</li>
+  <li>Set kursi pelaminan</li>
+  <li>Welcome gate</li>
+  <li>Welcome sign</li>
+  <li>Mini garden</li>
+  <li>Standing flower</li>
+  <li>Karpet jalan</li>
+  <li>Lighting standar dekor</li>
+  <li>Fresh flower + artificial</li>
+</ol>
+
+<b><strong>FREE</strong> :</b>
+<ol>
+  <li>Kain backdrop pelaminan</li>
+  <li>Karpet pelaminan</li>
+  <li>Kain cover meja kado</li>
+</ol>
+
+<b>DEKORASI MODERN</b><br>
+<b>Price List :</b><br>
+Dekorasi Akad + Resepsi<br>
+di RUMAH<br><br>
+<b>NOTED :<b>
+<ol>
+<li>Pemesanan wajib DP.
+<li>Pembatalan pemesanan sepihak dari customer,dp dianggap hangus.</li>
+<li>Bersedia di up di socialmedia.</li>
+<li>Tambahan biaya jika jarak lebih dari 3km</li>
+</ol>`
+  },
+  {
+    id: "SJ08",
+    kode: "SJ08",
+    nama: "Dekorasi Pernikahan",
+    kategori: "pernikahan",
+    harga: "0",
+    img: "sj08.png",
+    deskripsi: `
+<b>ITEM :</b>
+<ol>
+  <li>Backdrop pelaminan 6m</li>
+  <li>Set kursi pelaminan</li>
+  <li>Welcome gate</li>
+  <li>Welcome sign</li>
+  <li>Mini garden</li>
+  <li>Standing flower</li>
+  <li>Karpet jalan</li>
+  <li>Lighting standar dekor</li>
+  <li>Fresh flower + artificial</li>
+</ol>
+
+<b><strong>FREE</strong> :</b>
+<ol>
+  <li>Kain backdrop pelaminan</li>
+  <li>Karpet pelaminan</li>
+  <li>Kain cover meja kado</li>
+</ol>
+
+<b>DEKORASI MODERN</b><br>
+<b>Price List :</b><br>
+Dekorasi Akad + Resepsi<br>
+di RUMAH<br><br>
+<b>NOTED :<b>
+<ol>
+<li>Pemesanan wajib DP.
+<li>Pembatalan pemesanan sepihak dari customer,dp dianggap hangus.</li>
+<li>Bersedia di up di socialmedia.</li>
+<li>Tambahan biaya jika jarak lebih dari 3km</li>
+</ol>`
+  },
 ];
+
 
 /* ===========================================================
  *  SEARCH & FILTER
@@ -251,18 +612,59 @@ function loadDetail() {
   if (!target) return;
 
   const id = new URLSearchParams(location.search).get("id");
+  if (!id) {
+    target.innerHTML = "<p>Produk tidak ditemukan</p>";
+    return;
+  }
+
   const p = DEFAULT_PRODUCTS.find(x => x.id === id);
-  if (!p) return;
+  if (!p) {
+    target.innerHTML = "<p>Produk tidak ditemukan</p>";
+    return;
+  }
 
   target.innerHTML = `
     <img src="${p.img}" class="detail-img">
     <h2>${escapeHtml(p.nama)}</h2>
-    <p>${escapeHtml(p.deskripsi)}</p>
 
-    <b>Pilih Tipe Bunga</b><br>
-    <label><input type="radio" name="tipe" value="Bunga Asli"> Bunga Asli</label><br>
-    <label><input type="radio" name="tipe" value="Bunga Palsu"> Bunga Palsu</label><br>
-    <label><input type="radio" name="tipe" value="Campuran"> Campuran</label><br><br>
+    <div class="deskripsi-produk">
+      ${p.deskripsi}
+    </div>
+
+    <div class="tipe-bunga">
+      <b>Pilih Tipe Bunga</b><br>
+      <label><input type="radio" name="tipe" value="Bunga Asli" checked> Bunga Asli</label><br>
+      <label><input type="radio" name="tipe" value="Bunga Palsu"> Bunga Palsu</label><br>
+      <label><input type="radio" name="tipe" value="Campuran"> Campuran</label>
+    </div>
+
+    <div class="item-tambahan">
+      <b>Item Tambahan</b><br>
+
+      <label class="item-box">
+        <input type="checkbox" name="itemTambahan" value="Kembar Mayang (Sepasang) - Rp 250.000">
+        <span class="item-nama">Kembar Mayang (Sepasang)</span>
+        <span class="item-harga">Rp 250.000</span>
+      </label><br>
+
+      <label class="item-box">
+        <input type="checkbox" name="itemTambahan" value="Meja & Kursi Ijab - Rp 150.000">
+        <span class="item-nama">Meja & Kursi Ijab</span>
+        <span class="item-harga">Rp 150.000</span>
+      </label><br>
+
+      <label class="item-box">
+        <input type="checkbox" name="itemTambahan" value="Kain Cover di luar Backdrop - Rp 20.000 / meter">
+        <span class="item-nama">Kain Cover di luar Backdrop</span>
+        <span class="item-harga">Rp 20.000 / meter</span>
+      </label><br>
+
+      <label class="item-box">
+        <input type="checkbox" name="itemTambahan" value="Plafon Pelaminan - Harga tergantung model">
+        <span class="item-nama">Plafon Pelaminan</span>
+        <span class="item-harga">Tergantung model</span>
+      </label><br>
+    </div>
 
     <b>Tanggal Acara</b>
     <input type="date" id="tanggalAcara">
@@ -274,6 +676,9 @@ function loadDetail() {
 
     <button id="pesanBtn" class="btn btn-primary">Sepakati Harga</button>
   `;
+
+  const today = new Date().toISOString().split("T")[0];
+  document.getElementById("tanggalAcara").min = today;
 
   document.getElementById("pesanBtn").onclick = () => {
     const tipe = document.querySelector('input[name="tipe"]:checked');
@@ -287,40 +692,47 @@ function loadDetail() {
 
     const req = document.getElementById("reqInput").value.trim();
 
+    const items = [...document.querySelectorAll('input[name="itemTambahan"]:checked')]
+      .map(i => i.value);
+
     const preview = `
 Produk   : ${p.nama}
 Kode     : ${p.kode}
 Tipe     : ${tipe.value}
 Tanggal  : ${tanggal}
 Lokasi   : ${lokasi}
-${req ? `Request : ${req}` : ""}
+${items.length ? `Item Tambahan:\n- ${items.join("\n- ")}` : ""}
+${req ? `\nRequest : ${req}` : ""}
 
 Mohon untuk memberikan harga terbaik,
 agar bisa kita sepakati bersama.
     `.trim();
 
     showConfirm(preview, () => {
-      let pesan = "Halo Admin,%0A";
-      pesan += `Saya menginginkan:%0A`;
-      pesan += `Produk: ${p.nama}%0A`;
-      pesan += `Kode: ${p.kode}%0A`;
-      pesan += `Tipe: ${tipe.value}%0A`;
-      pesan += `Tanggal: ${tanggal}%0A`;
-      pesan += `Lokasi: ${lokasi}%0A`;
-      if (req) pesan += `Request: ${req}%0A`;
-      pesan += `%0AMohon harga terbaik agar bisa kita sepakati.%0ATerima kasih`;
+      const pesan = encodeURIComponent(
+`Halo Admin,
+
+Saya menginginkan:
+Produk : ${p.nama}
+Kode   : ${p.kode}
+Tipe   : ${tipe.value}
+Tanggal: ${tanggal}
+Lokasi : ${lokasi}
+
+${items.length ? `Item Tambahan:\n- ${items.join("\n- ")}\n` : ""}
+${req ? `Request: ${req}\n` : ""}
+Mohon harga terbaik agar bisa kita sepakati.
+Terima kasih`
+      );
+
       window.open(`https://wa.me/6281390708425?text=${pesan}`, "_blank");
     });
   };
 }
 
-/* ===========================================================
- *  INIT
- * =========================================================== */
+/* INIT */
 document.addEventListener("DOMContentLoaded", () => {
   renderPreview();
   renderProducts();
   loadDetail();
-  document.getElementById("searchBox")?.addEventListener("input", renderProducts);
-  document.getElementById("categoryFilter")?.addEventListener("change", renderProducts);
 });
