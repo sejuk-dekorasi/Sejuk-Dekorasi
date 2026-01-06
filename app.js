@@ -742,7 +742,7 @@ Terima kasih`
     );
 
 
-window.open(`https://wa.me/6281390708425?text=${pesan}`, "_blank");
+window.open(`https://wa.me/6285229128758?text=${pesan}`, "_blank");
     };
   };
 
