@@ -3,6 +3,32 @@ function getNamaUser() {
 }
 
 /* ===========================================================
+ *  VALIDASI LINK GOOGLE MAPS
+ * =========================================================== */
+function isValidGoogleMapsLink(url) {
+  if (!url) return false;
+
+  try {
+    const u = new URL(url);
+
+    const host = u.hostname.replace("www.", "");
+
+    return (
+      host === "google.com" && u.pathname.startsWith("/maps") ||
+      host === "maps.google.com" ||
+      host === "goo.gl" && u.pathname.startsWith("/maps") ||
+      host === "maps.app.goo.gl"
+    );
+  } catch (e) {
+    return false;
+  }
+}
+
+
+
+
+
+/* ===========================================================
  *  STYLE NOTIF & POPUP (INJECT — TAMBAHAN)
  * =========================================================== */
 (function () {
@@ -710,20 +736,44 @@ function loadDetail() {
 
   /* ================= KIRIM WA ================= */
   document.getElementById("pesanBtn").onclick = () => {
-    const tipe = document.querySelector('input[name="tipe"]:checked');
-    if (!tipe) return showNotif("Pilih tipe bunga");
+  const tipe = document.querySelector('input[name="tipe"]:checked');
+  if (!tipe) return showNotif("Pilih tipe bunga");
 
-    const tanggal = document.getElementById("tanggalAcara").value;
-    if (!tanggal) return showNotif("Pilih tanggal acara");
+  const tanggal = document.getElementById("tanggalAcara").value;
+  if (!tanggal) return showNotif("Pilih tanggal acara");
 
-    const lokasi = document.getElementById("lokasiAcara").value.trim();
-    if (!lokasi) return showNotif("Tentukan lokasi di peta");
+  const lokasi = document.getElementById("lokasiAcara").value.trim();
+  if (!lokasi) return showNotif("Tentukan lokasi acara");
 
-    const req = document.getElementById("reqInput").value.trim();
+  if (!isValidGoogleMapsLink(lokasi)) {
+    return showNotif(
+      "Lokasi harus berupa LINK GOOGLE MAPS yang valid.\n\n" +
+      "✔ Klik peta untuk otomatis\n" +
+      "✔ Atau paste link dari Google Maps"
+    );
+  }
 
-    const items = [...document.querySelectorAll('input[name="itemTambahan"]:checked')]
-      .map(i => i.value);
+  const req = document.getElementById("reqInput").value.trim();
 
+  const items = [...document.querySelectorAll('input[name="itemTambahan"]:checked')]
+    .map(i => i.value);
+
+  /* ================= RINGKASAN ================= */
+  const preview = `
+Nama    : ${getNamaUser()}
+Produk  : ${p.nama}
+Kode    : ${p.kode}
+Tipe    : ${tipe.value}
+Tanggal : ${tanggal}
+Lokasi  : ${lokasi}
+
+${items.length ? `Item Tambahan:\n- ${items.join("\n- ")}` : ""}
+${req ? `\nRequest: ${req}` : ""}
+
+Mohon harga terbaik agar bisa kita sepakati.
+  `.trim();
+
+  showConfirm(preview, () => {
     const pesan = encodeURIComponent(
 `Halo Admin,
 
@@ -735,15 +785,15 @@ Tipe    : ${tipe.value}
 Tanggal : ${tanggal}
 Lokasi  : ${lokasi}
 
-${items.length ? "Item Tambahan:\n- " + items.join("\n- ") + "\n" : ""}
-${req ? "Request: " + req + "\n" : ""}
+${items.length ? "Item Tambahan:\n- " + items.join("\n- ") + "\n" : ""}${req ? "Request: " + req + "\n" : ""}
 Mohon harga terbaik agar bisa kita sepakati.
 Terima kasih`
     );
 
+    window.open(`https://wa.me/6285229128758?text=${pesan}`, "_blank");
+  });
+};
 
-window.open(`https://wa.me/6285229128758?text=${pesan}`, "_blank");
-    };
   };
 
 
@@ -753,3 +803,4 @@ document.addEventListener("DOMContentLoaded", () => {
   renderProducts();
   loadDetail();
 });
+
