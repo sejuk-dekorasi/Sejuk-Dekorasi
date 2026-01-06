@@ -245,7 +245,7 @@ di RUMAH<br><br>
   },
   {
     id: "SJ02",
-    kode: "SJ012",
+    kode: "SJ02",
     nama: "Dekorasi Pernikahan",
     kategori: "pernikahan",
     harga: "0",
@@ -604,9 +604,6 @@ function renderPreview() {
         <p>${escapeHtml(p.kode)}</p>
         <div class="btn-wrap">
           <a href="detail.html?id=${p.id}" class="btn btn-primary">Detail</a>
-          <a target="_blank"
-            href="https://wa.me/6285229128758?text=Halo%20Admin,%20saya%20ingin%20bertanya%20tentang%20produk%20${encodeURIComponent(p.nama)}%20(${p.kode})"
-            class="btn btn-primary">💬 Chat Admin</a>
         </div>
       </div>
     </div>
@@ -634,9 +631,6 @@ function renderProducts() {
         <p>${escapeHtml(p.kode)}</p>
         <div class="btn-wrap">
           <a href="detail.html?id=${p.id}" class="btn btn-primary">Detail</a>
-          <a target="_blank"
-            href="https://wa.me/6285229128758?text=Halo%20Admin,%20saya%20ingin%20bertanya%20tentang%20produk%20${encodeURIComponent(p.nama)}%20(${p.kode})"
-            class="btn btn-primary">💬 Chat Admin</a>
         </div>
       </div>
     </div>
@@ -705,7 +699,7 @@ function loadDetail() {
 
     <textarea id="reqInput" placeholder="Request tambahan (opsional)"></textarea><br>
 
-    <button id="pesanBtn" class="btn btn-primary">Sepakati Harga</button>
+    <button id="pesanBtn" class="btn btn-primary">💬Sepakati Harga</button>
   `;
 
   // batas tanggal hari ini
