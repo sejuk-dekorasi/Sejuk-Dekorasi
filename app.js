@@ -579,7 +579,7 @@ function renderPreview() {
         <div class="btn-wrap">
           <a href="detail.html?id=${p.id}" class="btn btn-primary">Detail</a>
           <a target="_blank"
-            href="https://wa.me/6281390708425?text=Halo%20Admin,%20saya%20ingin%20bertanya%20tentang%20produk%20${encodeURIComponent(p.nama)}%20(${p.kode})"
+            href="https://wa.me/6285229128758?text=Halo%20Admin,%20saya%20ingin%20bertanya%20tentang%20produk%20${encodeURIComponent(p.nama)}%20(${p.kode})"
             class="btn btn-primary">💬 Chat Admin</a>
         </div>
       </div>
@@ -609,7 +609,7 @@ function renderProducts() {
         <div class="btn-wrap">
           <a href="detail.html?id=${p.id}" class="btn btn-primary">Detail</a>
           <a target="_blank"
-            href="https://wa.me/6281390708425?text=Halo%20Admin,%20saya%20ingin%20bertanya%20tentang%20produk%20${encodeURIComponent(p.nama)}%20(${p.kode})"
+            href="https://wa.me/6285229128758?text=Halo%20Admin,%20saya%20ingin%20bertanya%20tentang%20produk%20${encodeURIComponent(p.nama)}%20(${p.kode})"
             class="btn btn-primary">💬 Chat Admin</a>
         </div>
       </div>
