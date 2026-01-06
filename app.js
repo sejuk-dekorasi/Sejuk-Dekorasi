@@ -1,3 +1,7 @@
+function getNamaUser() {
+  return localStorage.getItem("namaUser") || "";
+}
+
 /* ===========================================================
  *  STYLE NOTIF & POPUP (INJECT — TAMBAHAN)
  * =========================================================== */
@@ -215,7 +219,7 @@ di RUMAH<br><br>
   },
   {
     id: "SJ02",
-    kode: "SJ02",
+    kode: "SJ012",
     nama: "Dekorasi Pernikahan",
     kategori: "pernikahan",
     harga: "0",
@@ -260,6 +264,46 @@ di RUMAH<br><br>
     kategori: "pernikahan",
     harga: "0",
     img: "sj03.png",
+    deskripsi: `
+<b>ITEM :</b>
+<ol>
+  <li>Backdrop pelaminan 6m</li>
+  <li>Set kursi pelaminan</li>
+  <li>Welcome gate</li>
+  <li>Welcome sign</li>
+  <li>Mini garden</li>
+  <li>Standing flower</li>
+  <li>Karpet jalan</li>
+  <li>Lighting standar dekor</li>
+  <li>Fresh flower + artificial</li>
+</ol>
+
+<b><strong>FREE</strong> :</b>
+<ol>
+  <li>Kain backdrop pelaminan</li>
+  <li>Karpet pelaminan</li>
+  <li>Kain cover meja kado</li>
+</ol>
+
+<b>DEKORASI MODERN</b><br>
+<b>Price List :</b><br>
+Dekorasi Akad + Resepsi<br>
+di RUMAH<br><br>
+<b>NOTED :<b>
+<ol>
+<li>Pemesanan wajib DP.
+<li>Pembatalan pemesanan sepihak dari customer,dp dianggap hangus.</li>
+<li>Bersedia di up di socialmedia.</li>
+<li>Tambahan biaya jika jarak lebih dari 3km</li>
+</ol>`
+  },
+  {
+    id: "SJ04",
+    kode: "SJ04",
+    nama: "Dekorasi Pernikahan",
+    kategori: "pernikahan",
+    harga: "0",
+    img: "sj04.png",
     deskripsi: `
 <b>ITEM :</b>
 <ol>
@@ -596,9 +640,7 @@ function loadDetail() {
     <img src="${p.img}" class="detail-img">
     <h2>${escapeHtml(p.nama)}</h2>
 
-    <div class="deskripsi-produk">
-      ${p.deskripsi}
-    </div>
+    <div class="deskripsi-produk">${p.deskripsi}</div>
 
     <div class="tipe-bunga">
       <b>Pilih Tipe Bunga</b><br>
@@ -609,95 +651,101 @@ function loadDetail() {
 
     <div class="item-tambahan">
       <b>Item Tambahan</b><br>
-
       <label class="item-box">
-        <input type="checkbox" name="itemTambahan" value="Kembar Mayang (Sepasang) - Rp 250.000">
-        <span class="item-nama">Kembar Mayang (Sepasang)</span>
-        <span class="item-harga">Rp 250.000</span>
+        <input type="checkbox" name="itemTambahan" value="Kembar Mayang - Rp 250.000">
+        <span>Kembar Mayang</span>
       </label><br>
-
       <label class="item-box">
         <input type="checkbox" name="itemTambahan" value="Meja & Kursi Ijab - Rp 150.000">
-        <span class="item-nama">Meja & Kursi Ijab</span>
-        <span class="item-harga">Rp 150.000</span>
+        <span>Meja & Kursi Ijab</span>
       </label><br>
-
       <label class="item-box">
-        <input type="checkbox" name="itemTambahan" value="Kain Cover di luar Backdrop - Rp 20.000 / meter">
-        <span class="item-nama">Kain Cover di luar Backdrop</span>
-        <span class="item-harga">Rp 20.000 / meter</span>
+        <input type="checkbox" name="itemTambahan" value="Kain Cover Backdrop - Rp 20.000/m">
+        <span>Kain Cover Backdrop</span>
       </label><br>
-
       <label class="item-box">
-        <input type="checkbox" name="itemTambahan" value="Plafon Pelaminan - Harga tergantung model">
-        <span class="item-nama">Plafon Pelaminan</span>
-        <span class="item-harga">Tergantung model</span>
-      </label><br>
+        <input type="checkbox" name="itemTambahan" value="Plafon Pelaminan - Tergantung Model">
+        <span>Plafon Pelaminan</span>
+      </label>
     </div>
 
     <b>Tanggal Acara</b>
     <input type="date" id="tanggalAcara">
 
     <b>Lokasi Acara</b>
-    <input type="text" id="lokasiAcara" placeholder="Contoh: Bekasi – Gedung Serbaguna">
+    <input type="text" id="lokasiAcara" placeholder="Klik peta untuk menentukan lokasi atau letakkan link GMAPS anda">
+
+    <div id="map" style="height:300px;margin-top:10px;border-radius:12px"></div>
 
     <textarea id="reqInput" placeholder="Request tambahan (opsional)"></textarea><br>
 
     <button id="pesanBtn" class="btn btn-primary">Sepakati Harga</button>
   `;
 
-  const today = new Date().toISOString().split("T")[0];
-  document.getElementById("tanggalAcara").min = today;
+  // batas tanggal hari ini
+  document.getElementById("tanggalAcara").min =
+    new Date().toISOString().split("T")[0];
 
+  /* ================= MAP PICKER ================= */
+  const map = L.map("map").setView([-6.2, 106.8], 12);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap"
+  }).addTo(map);
+
+  let marker = null;
+
+  map.on("click", e => {
+    const { lat, lng } = e.latlng;
+
+    if (marker) {
+      marker.setLatLng(e.latlng);
+    } else {
+      marker = L.marker(e.latlng).addTo(map);
+    }
+
+    document.getElementById("lokasiAcara").value =
+      `https://www.google.com/maps?q=${lat},${lng}`;
+  });
+
+  /* ================= KIRIM WA ================= */
   document.getElementById("pesanBtn").onclick = () => {
     const tipe = document.querySelector('input[name="tipe"]:checked');
-    if (!tipe) return showNotif("Pilih tipe bunga dulu");
+    if (!tipe) return showNotif("Pilih tipe bunga");
 
     const tanggal = document.getElementById("tanggalAcara").value;
-    if (!tanggal) return showNotif("Pilih tanggal acara dulu");
+    if (!tanggal) return showNotif("Pilih tanggal acara");
 
     const lokasi = document.getElementById("lokasiAcara").value.trim();
-    if (!lokasi) return showNotif("Isi lokasi acara dulu");
+    if (!lokasi) return showNotif("Tentukan lokasi di peta");
 
     const req = document.getElementById("reqInput").value.trim();
 
     const items = [...document.querySelectorAll('input[name="itemTambahan"]:checked')]
       .map(i => i.value);
 
-    const preview = `
-Produk   : ${p.nama}
-Kode     : ${p.kode}
-Tipe     : ${tipe.value}
-Tanggal  : ${tanggal}
-Lokasi   : ${lokasi}
-${items.length ? `Item Tambahan:\n- ${items.join("\n- ")}` : ""}
-${req ? `\nRequest : ${req}` : ""}
-
-Mohon untuk memberikan harga terbaik,
-agar bisa kita sepakati bersama.
-    `.trim();
-
-    showConfirm(preview, () => {
-      const pesan = encodeURIComponent(
+    const pesan = encodeURIComponent(
 `Halo Admin,
 
-Saya menginginkan:
-Produk : ${p.nama}
-Kode   : ${p.kode}
-Tipe   : ${tipe.value}
-Tanggal: ${tanggal}
-Lokasi : ${lokasi}
+Nama Pelanggan : ${getNamaUser()}
 
-${items.length ? `Item Tambahan:\n- ${items.join("\n- ")}\n` : ""}
-${req ? `Request: ${req}\n` : ""}
+Produk  : ${p.nama}
+Kode    : ${p.kode}
+Tipe    : ${tipe.value}
+Tanggal : ${tanggal}
+Lokasi  : ${lokasi}
+
+${items.length ? "Item Tambahan:\n- " + items.join("\n- ") + "\n" : ""}
+${req ? "Request: " + req + "\n" : ""}
 Mohon harga terbaik agar bisa kita sepakati.
 Terima kasih`
-      );
+    );
 
-      window.open(`https://wa.me/6281390708425?text=${pesan}`, "_blank");
-    });
+
+window.open(`https://wa.me/6281390708425?text=${pesan}`, "_blank");
+    };
   };
-}
+
 
 /* INIT */
 document.addEventListener("DOMContentLoaded", () => {
