@@ -5,80 +5,157 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Sejuk Dekorasi - Beranda</title>
   <link rel="stylesheet" href="style.css" />
+
+  <!-- LOGIN NAMA STYLE -->
+  <style>
+    .login-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+    }
+
+    .login-box {
+      background: #fff;
+      padding: 20px;
+      width: 90%;
+      max-width: 320px;
+      border-radius: 14px;
+      text-align: center;
+    }
+
+    .login-box h3 {
+      margin-bottom: 10px;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 10px;
+      cursor: pointer;
+    }
+  </style>
 </head>
+
 <body>
-  <!-- TOPBAR + BURGER -->
-  <header class="topbar">
-    <button id="burgerBtn" class="burger">☰</button>
-    <div class="brand">
-  <img src="logo.png" style="
-    width:20px;
-    height:20px;
-    border-radius:50%;
-    object-fit:cover;
-  ">
-  Sejuk Dekorasi-Akses Awal
+
+<!-- ================= LOGIN NAMA (WAJIB) ================= -->
+<div id="loginNama" class="login-overlay">
+  <div class="login-box">
+    <h3>Masukkan Nama Anda</h3>
+    <input type="text" id="namaUser" placeholder="Nama lengkap">
+    <button id="loginBtn">Masuk</button>
+  </div>
 </div>
 
+<!-- ================= TOPBAR ================= -->
+<header class="topbar">
+  <button id="burgerBtn" class="burger">☰</button>
 
-    <div class="right-actions">
-      <a href="produk.html" class="link">Produk</a>
-      <a href="kontak.html" class="link">Kontak</a>
+  <div class="brand">
+    <img src="logo.png" style="
+      width:20px;
+      height:20px;
+      border-radius:50%;
+      object-fit:cover;
+    ">
+    Sejuk Dekorasi - Akses Awal
+  </div>
+
+  <div class="right-actions">
+    <a href="produk.html" class="link">Produk</a>
+    <a href="kontak.html" class="link">Kontak</a>
+  </div>
+</header>
+
+<!-- ================= SIDEBAR ================= -->
+<nav id="sidebar" class="sidebar">
+  <a href="index.html">Beranda</a>
+  <a href="produk.html">Produk</a>
+  <a href="kontak.html">Kontak Person</a>
+  <a href="tentang.html">Tentang</a>
+  <div class="divider"></div>
+  <a href="admin.html" class="admin-link">Admin Panel</a>
+  <div class="serv-info">Melayani: <strong>Jawa Tengah</strong></div>
+</nav>
+
+<!-- ================= MAIN ================= -->
+<main>
+  <section class="hero">
+    <h1>Sejuk Dekorasi</h1>
+    <p>Mewujudkan momen spesial — Melayani wilayah <strong>Jawa Tengah</strong></p>
+
+    <div class="hero-actions">
+      <input id="homeSearch" class="search" placeholder="Cari produk (nama atau kode)..." />
+      <a href="produk.html" class="btn btn-primary">Lihat Semua Produk</a>
     </div>
-  </header>
+  </section>
 
-  <!-- SIDEBAR -->
-  <nav id="sidebar" class="sidebar">
-    <a href="index.html">Beranda</a>
-    <a href="produk.html">Produk</a>
-    <a href="kontak.html">Kontak Person</a>
-    <a href="tentang.html">Tentang</a>
-    <div class="divider"></div>
-    <a href="admin.html" class="admin-link">Admin Panel</a>
-    <div class="serv-info">Melayani: <strong>Jawa Tengah,dan Sekitarnya</strong></div>
-  </nav>
+  <section class="container">
+    <h2>Cuplikan Produk</h2>
+    <div id="previewGrid" class="grid">
+      <!-- diisi lewat JS -->
+    </div>
+  </section>
+</main>
 
-  <main>
-    <section class="hero">
-      <h1>Sejuk Dekorasi</h1>
-      <p>Save your moment with us — Melayani wilayah <strong>Jawa Tengah,dan Sekitarnya</strong></p>
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <small>© 2025 Sejuk Dekorasi — rrq onik hann#1945 — Melayani Jawa Tengah</small>
+</footer>
 
-      <div class="hero-actions">
-        <input id="homeSearch" class="search" placeholder="Cari produk (nama atau kode)..." /><br>
-        <a href="produk.html" class="btn btn-primary">Lihat Semua Produk</a>
-      </div>
-    </section>
+<!-- ================= SCRIPT ================= -->
+<script src="auth.js"></script>
+<script src="app.js"></script>
 
-    <section class="container">
-      <h2>Cuplikan Produk</h2>
-      <div id="previewGrid" class="grid">
-        <!-- terisi lewat js (preview 6 produk atau kosong) -->
-      </div>
-    </section>
-  </main>
+<script>
+  /* ===== LOGIN NAMA SIMPLE (KHUSUS PELANGGAN) ===== */
+  document.addEventListener("DOMContentLoaded", () => {
+    const overlay = document.getElementById("loginNama");
+    const input = document.getElementById("namaUser");
+    const btn = document.getElementById("loginBtn");
 
-  <footer class="footer">
-    <small>© 2025 Sejuk Dekorasi — Melayani Jawa Tengah</small>
-  </footer>
+    const savedName = localStorage.getItem("namaUser");
+    if (savedName) {
+      overlay.style.display = "none";
+      return;
+    }
 
-  <script src="auth.js"></script>
-  <script src="app.js"></script>
-  <script>
-    // sidebar toggle
-    document.getElementById('burgerBtn').addEventListener('click', ()=>{
-      document.getElementById('sidebar').classList.toggle('active');
-    });
-
-    // home quick search triggers produk page with query param
-    document.getElementById('homeSearch').addEventListener('keydown', function(e){
-      if(e.key === 'Enter'){
-        const q = this.value.trim();
-        if(q) location.href = 'produk.html?search=' + encodeURIComponent(q);
+    btn.onclick = () => {
+      const nama = input.value.trim();
+      if (!nama) {
+        alert("Nama wajib diisi");
+        return;
       }
-    });
+      localStorage.setItem("namaUser", nama);
+      overlay.style.display = "none";
+    };
+  });
 
-    // render preview
-    renderPreview(); // dari app.js
-  </script>
+  /* ===== SIDEBAR ===== */
+  document.getElementById('burgerBtn').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('active');
+  });
+
+  /* ===== QUICK SEARCH ===== */
+  document.getElementById('homeSearch').addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){
+      const q = this.value.trim();
+      if(q) location.href = 'produk.html?search=' + encodeURIComponent(q);
+    }
+  });
+
+  /* ===== PREVIEW ===== */
+  renderPreview();
+</script>
+
 </body>
 </html>
