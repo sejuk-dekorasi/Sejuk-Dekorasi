@@ -596,19 +596,73 @@ function renderPreview() {
   const target = document.getElementById("previewGrid");
   if (!target) return;
 
-  target.innerHTML = DEFAULT_PRODUCTS.map(p => `
-    <div class="card">
-      <img src="${p.img}" class="card-img">
-      <div class="card-body">
-        <h4>${escapeHtml(p.nama)}</h4>
-        <p>${escapeHtml(p.kode)}</p>
-        <div class="btn-wrap">
-          <a href="detail.html?id=${p.id}" class="btn btn-primary">Detail</a>
-        </div>
+  // inject CSS sekali aja
+  if (!document.getElementById("sliderStyle")) {
+    const style = document.createElement("style");
+    style.id = "sliderStyle";
+    style.innerHTML = `
+      #previewGrid {
+        display: block !important;
+        margin-bottom: 20px;
+      }
+
+      .slider-container {
+        width: 100%;
+        overflow: hidden;
+        border-radius: 18px;
+      }
+
+      .slider-track {
+        display: flex;
+        gap: 14px;
+        animation: slide 25s linear infinite;
+      }
+
+      .slider-item {
+        min-width: 240px;
+        height: 160px;
+        border-radius: 16px;
+        overflow: hidden;
+        cursor: pointer;
+        flex-shrink: 0;
+        box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      }
+
+      .slider-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: .35s ease;
+      }
+
+      .slider-item:hover img {
+        transform: scale(1.06);
+      }
+
+      @keyframes slide {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  const items = DEFAULT_PRODUCTS.filter(p => p.img);
+  const doubled = [...items, ...items];
+
+  target.innerHTML = `
+    <div class="slider-container">
+      <div class="slider-track">
+        ${doubled.map(p => `
+          <div class="slider-item" onclick="location.href='detail.html?id=${p.id}'">
+            <img src="${p.img}" alt="${p.nama}">
+          </div>
+        `).join("")}
       </div>
     </div>
-  `).join("");
+  `;
 }
+
 
 /* ===========================================================
  *  RENDER LIST
