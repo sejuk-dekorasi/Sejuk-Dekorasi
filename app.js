@@ -768,70 +768,80 @@ function loadDetail() {
     <input type="date" id="tanggalAcara">
 
     <b>Lokasi Acara</b>
-    <input type="text" id="lokasiAcara" placeholder="Klik peta untuk menentukan lokasi">
 
-    <div id="map" style="height:280px;margin-top:10px;border-radius:12px"></div>
+    <div class="lokasi-mode">
+      <label><input type="radio" name="lokasiMode" value="ketik" checked> Ketik Lokasi</label>
+      <label style="margin-left:12px">
+        <input type="radio" name="lokasiMode" value="map"> Pilih dari Map
+      </label>
+    </div>
+
+    <input type="text" id="lokasiAcara" placeholder="Contoh: Gedung Serbaguna Bekasi">
+
+    <div id="mapWrap" style="display:none">
+      <div id="map" style="height:280px;margin-top:10px;border-radius:12px"></div>
+    </div>
 
     <textarea id="reqInput" placeholder="Request tambahan (opsional)"></textarea><br>
 
     <button id="pesanBtn" class="btn btn-primary">Sepakati Harga</button>
   `;
-/* ================= CSS INPUT METER BACKDROP ================= */
-(function () {
-  if (document.getElementById("meterBackdropStyle")) return;
 
-  const style = document.createElement("style");
-  style.id = "meterBackdropStyle";
-  style.innerHTML = `
-    #meterBox {
-      margin-top: 6px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    #meterBackdrop {
-      width: 90px;
-      padding: 6px 10px;
-      font-size: 14px;
-      border-radius: 10px;
-      border: none;
-      outline: none;
-      text-align: center;
-      color: #fff;
-      background: linear-gradient(
-        135deg,
-        rgba(128,0,255,.45),
-        rgba(0,120,255,.45)
-      );
-      box-shadow: 0 6px 14px rgba(0,0,0,.35);
-    }
-
-    #meterBackdrop::placeholder {
-      color: rgba(255,255,255,.7);
-      font-size: 12px;
-    }
-
-    #hargaBackdrop {
-      font-size: 13px;
-      color: #fff;
-      opacity: .9;
-    }
-  `;
-  document.head.appendChild(style);
-})();
+  /* ================= CSS ================= */
+  (function () {
+    if (document.getElementById("detailStyle")) return;
+    const style = document.createElement("style");
+    style.id = "detailStyle";
+    style.innerHTML = `
+      .lokasi-mode {
+        margin:6px 0 8px;
+      }
+      #meterBackdrop {
+        width:90px;
+        padding:6px 10px;
+        border-radius:10px;
+        border:none;
+        text-align:center;
+        background:linear-gradient(135deg,rgba(128,0,255,.45),rgba(0,120,255,.45));
+        color:#fff;
+      }
+      #hargaBackdrop {
+        font-size:13px;
+        color:#fff;
+      }
+    `;
+    document.head.appendChild(style);
+  })();
 
   /* ================= MAP ================= */
-  const map = L.map("map").setView([-6.2, 106.8], 12);
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+  let map, marker;
 
-  let marker;
-  map.on("click", e => {
-    if (!marker) marker = L.marker(e.latlng).addTo(map);
-    else marker.setLatLng(e.latlng);
+  function initMap() {
+    if (map) return;
+    map = L.map("map").setView([-6.2, 106.8], 12);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
-    document.getElementById("lokasiAcara").value =
-      `https://www.google.com/maps?q=${e.latlng.lat},${e.latlng.lng}`;
+    map.on("click", e => {
+      if (!marker) marker = L.marker(e.latlng).addTo(map);
+      else marker.setLatLng(e.latlng);
+
+      document.getElementById("lokasiAcara").value =
+        `https://www.google.com/maps?q=${e.latlng.lat},${e.latlng.lng}`;
+    });
+  }
+
+  /* ================= MODE LOKASI ================= */
+  document.querySelectorAll('input[name="lokasiMode"]').forEach(r => {
+    r.onchange = () => {
+      const mode = document.querySelector('input[name="lokasiMode"]:checked').value;
+      const mapWrap = document.getElementById("mapWrap");
+      if (mode === "map") {
+        mapWrap.style.display = "block";
+        initMap();
+      } else {
+        mapWrap.style.display = "none";
+      }
+    };
   });
 
   /* ================= ITEM & TOTAL ================= */
@@ -843,27 +853,15 @@ function loadDetail() {
 
   function hitungTotal() {
     let total = 0;
-
     document.querySelectorAll(".item-tambahan input[type=checkbox]").forEach(cb => {
-      if (cb.checked && cb.dataset.harga) {
-        total += parseInt(cb.dataset.harga);
-      }
+      if (cb.checked && cb.dataset.harga) total += +cb.dataset.harga;
     });
-
-    if (backdropCheck.checked) {
-      const m = parseInt(meterInput.value || 0);
-      total += m * 20000;
-    }
-
-    totalBox.textContent =
-      "Total Item Tambahan: Rp " + total.toLocaleString("id-ID");
-
+    if (backdropCheck.checked) total += (parseInt(meterInput.value || 0) * 20000);
+    totalBox.textContent = "Total Item Tambahan: Rp " + total.toLocaleString("id-ID");
     return total;
   }
 
-  document.querySelectorAll(".item-tambahan input").forEach(i => {
-    i.onchange = hitungTotal;
-  });
+  document.querySelectorAll(".item-tambahan input").forEach(i => i.onchange = hitungTotal);
 
   backdropCheck.onchange = () => {
     meterBox.style.display = backdropCheck.checked ? "block" : "none";
@@ -874,8 +872,7 @@ function loadDetail() {
 
   meterInput.oninput = () => {
     const m = parseInt(meterInput.value || 0);
-    hargaBackdrop.textContent =
-      m ? `Harga: Rp ${(m * 20000).toLocaleString("id-ID")}` : "";
+    hargaBackdrop.textContent = m ? `Harga: Rp ${(m * 20000).toLocaleString("id-ID")}` : "";
     hitungTotal();
   };
 
@@ -889,24 +886,16 @@ function loadDetail() {
       return showNotif("Lengkapi data terlebih dahulu");
 
     const items = [];
-
     document.querySelectorAll(".item-tambahan input[type=checkbox]").forEach(cb => {
-      if (cb.checked && cb !== backdropCheck) {
-        items.push(cb.value);
-      }
+      if (cb.checked && cb !== backdropCheck) items.push(cb.value);
     });
-
-    if (backdropCheck.checked) {
-      const m = parseInt(meterInput.value || 0);
-      if (!m) return showNotif("Isi jumlah meter backdrop");
-      items.push(`Kain Cover Backdrop ${m} m`);
-    }
+    if (backdropCheck.checked) items.push(`Kain Cover Backdrop ${meterInput.value} m`);
 
     const totalHarga = hitungTotal();
     const req = document.getElementById("reqInput").value.trim();
 
-    const preview = `
-Nama    : ${getNamaUser()}
+    showConfirm(
+`Nama    : ${getNamaUser()}
 Produk  : ${p.nama}
 Kode    : ${p.kode}
 Tipe    : ${tipe.value}
@@ -918,11 +907,8 @@ Item Tambahan:
 
 Total Item Tambahan:
 Rp ${totalHarga.toLocaleString("id-ID")}
+${req ? "\nRequest: " + req : ""}`, () => {
 
-${req ? "Request: " + req : ""}
-    `.trim();
-
-    showConfirm(preview, () => {
       const pesan = encodeURIComponent(
 `Halo Admin,
 
@@ -941,7 +927,6 @@ Total Item Tambahan:
 Rp ${totalHarga.toLocaleString("id-ID")}
 
 ${req ? "Request: " + req + "\n" : ""}
-Mohon harga terbaik agar bisa kita sepakati.
 Terima kasih`
       );
 
