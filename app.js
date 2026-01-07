@@ -596,7 +596,7 @@ function renderPreview() {
   const target = document.getElementById("previewGrid");
   if (!target) return;
 
-  // inject CSS sekali aja
+  // inject CSS (sekali saja)
   if (!document.getElementById("sliderStyle")) {
     const style = document.createElement("style");
     style.id = "sliderStyle";
@@ -619,6 +619,7 @@ function renderPreview() {
       }
 
       .slider-item {
+        position: relative;
         min-width: 240px;
         height: 160px;
         border-radius: 16px;
@@ -639,6 +640,20 @@ function renderPreview() {
         transform: scale(1.06);
       }
 
+      .kode-badge {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        padding: 4px 10px;
+        font-size: 12px;
+        font-weight: bold;
+        color: #fff;
+        border-radius: 999px;
+        background: rgba(0,0,0,.6);
+        backdrop-filter: blur(6px);
+        box-shadow: 0 4px 12px rgba(0,0,0,.4);
+      }
+
       @keyframes slide {
         0% { transform: translateX(0); }
         100% { transform: translateX(-50%); }
@@ -655,6 +670,7 @@ function renderPreview() {
       <div class="slider-track">
         ${doubled.map(p => `
           <div class="slider-item" onclick="location.href='detail.html?id=${p.id}'">
+            <span class="kode-badge">${p.kode}</span>
             <img src="${p.img}" alt="${p.nama}">
           </div>
         `).join("")}
