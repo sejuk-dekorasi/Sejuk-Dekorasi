@@ -715,16 +715,8 @@ function loadDetail() {
   if (!target) return;
 
   const id = new URLSearchParams(location.search).get("id");
-  if (!id) {
-    target.innerHTML = "<p>Produk tidak ditemukan</p>";
-    return;
-  }
-
   const p = DEFAULT_PRODUCTS.find(x => x.id === id);
-  if (!p) {
-    target.innerHTML = "<p>Produk tidak ditemukan</p>";
-    return;
-  }
+  if (!p) return;
 
   target.innerHTML = `
     <img src="${p.img}" class="detail-img">
@@ -741,89 +733,179 @@ function loadDetail() {
 
     <div class="item-tambahan">
       <b>Item Tambahan</b><br>
+
       <label class="item-box">
-        <input type="checkbox" name="itemTambahan" value="Kembar Mayang - Rp 250.000">
-        <span>Kembar Mayang</span>
+        <input type="checkbox" data-harga="250000" value="Kembar Mayang">
+        Kembar Mayang – Rp 250.000
       </label><br>
+
       <label class="item-box">
-        <input type="checkbox" name="itemTambahan" value="Meja & Kursi Ijab - Rp 150.000">
-        <span>Meja & Kursi Ijab</span>
+        <input type="checkbox" data-harga="150000" value="Meja & Kursi Ijab">
+        Meja & Kursi Ijab – Rp 150.000
       </label><br>
+
       <label class="item-box">
-        <input type="checkbox" name="itemTambahan" value="Kain Cover Backdrop - Rp 20.000/m">
-        <span>Kain Cover Backdrop</span>
+        <input type="checkbox" id="backdropCheck">
+        Kain Cover Backdrop – Rp 20.000 / meter
       </label><br>
+
+      <div id="meterBox" style="display:none">
+        <input type="number" id="meterBackdrop" min="1" placeholder="meter">
+        <div id="hargaBackdrop"></div>
+      </div>
+
       <label class="item-box">
-        <input type="checkbox" name="itemTambahan" value="Plafon Pelaminan - Tergantung Model">
-        <span>Plafon Pelaminan</span>
+        <input type="checkbox" value="Plafon Pelaminan">
+        Plafon Pelaminan (harga tergantung model)
       </label>
+
+      <div id="totalItem" style="margin-top:8px;font-weight:bold">
+        Total Item Tambahan: Rp 0
+      </div>
     </div>
 
     <b>Tanggal Acara</b>
     <input type="date" id="tanggalAcara">
 
     <b>Lokasi Acara</b>
-    <input type="text" id="lokasiAcara" placeholder="Klik peta untuk menentukan lokasi atau letakkan link GMAPS anda">
+    <input type="text" id="lokasiAcara" placeholder="Klik peta untuk menentukan lokasi">
 
-    <div id="map" style="height:300px;margin-top:10px;border-radius:12px"></div>
+    <div id="map" style="height:280px;margin-top:10px;border-radius:12px"></div>
 
     <textarea id="reqInput" placeholder="Request tambahan (opsional)"></textarea><br>
 
-    <button id="pesanBtn" class="btn btn-primary">💬Sepakati Harga</button>
+    <button id="pesanBtn" class="btn btn-primary">Sepakati Harga</button>
   `;
+/* ================= CSS INPUT METER BACKDROP ================= */
+(function () {
+  if (document.getElementById("meterBackdropStyle")) return;
 
-  // batas tanggal hari ini
-  document.getElementById("tanggalAcara").min =
-    new Date().toISOString().split("T")[0];
-
-  /* ================= MAP PICKER ================= */
-  const map = L.map("map").setView([-6.2, 106.8], 12);
-
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "© OpenStreetMap"
-  }).addTo(map);
-
-  let marker = null;
-
-  map.on("click", e => {
-    const { lat, lng } = e.latlng;
-
-    if (marker) {
-      marker.setLatLng(e.latlng);
-    } else {
-      marker = L.marker(e.latlng).addTo(map);
+  const style = document.createElement("style");
+  style.id = "meterBackdropStyle";
+  style.innerHTML = `
+    #meterBox {
+      margin-top: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
+    #meterBackdrop {
+      width: 90px;
+      padding: 6px 10px;
+      font-size: 14px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      text-align: center;
+      color: #fff;
+      background: linear-gradient(
+        135deg,
+        rgba(128,0,255,.45),
+        rgba(0,120,255,.45)
+      );
+      box-shadow: 0 6px 14px rgba(0,0,0,.35);
+    }
+
+    #meterBackdrop::placeholder {
+      color: rgba(255,255,255,.7);
+      font-size: 12px;
+    }
+
+    #hargaBackdrop {
+      font-size: 13px;
+      color: #fff;
+      opacity: .9;
+    }
+  `;
+  document.head.appendChild(style);
+})();
+
+  /* ================= MAP ================= */
+  const map = L.map("map").setView([-6.2, 106.8], 12);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+
+  let marker;
+  map.on("click", e => {
+    if (!marker) marker = L.marker(e.latlng).addTo(map);
+    else marker.setLatLng(e.latlng);
+
     document.getElementById("lokasiAcara").value =
-      `https://www.google.com/maps?q=${lat},${lng}`;
+      `https://www.google.com/maps?q=${e.latlng.lat},${e.latlng.lng}`;
   });
+
+  /* ================= ITEM & TOTAL ================= */
+  const totalBox = document.getElementById("totalItem");
+  const backdropCheck = document.getElementById("backdropCheck");
+  const meterBox = document.getElementById("meterBox");
+  const meterInput = document.getElementById("meterBackdrop");
+  const hargaBackdrop = document.getElementById("hargaBackdrop");
+
+  function hitungTotal() {
+    let total = 0;
+
+    document.querySelectorAll(".item-tambahan input[type=checkbox]").forEach(cb => {
+      if (cb.checked && cb.dataset.harga) {
+        total += parseInt(cb.dataset.harga);
+      }
+    });
+
+    if (backdropCheck.checked) {
+      const m = parseInt(meterInput.value || 0);
+      total += m * 20000;
+    }
+
+    totalBox.textContent =
+      "Total Item Tambahan: Rp " + total.toLocaleString("id-ID");
+
+    return total;
+  }
+
+  document.querySelectorAll(".item-tambahan input").forEach(i => {
+    i.onchange = hitungTotal;
+  });
+
+  backdropCheck.onchange = () => {
+    meterBox.style.display = backdropCheck.checked ? "block" : "none";
+    meterInput.value = "";
+    hargaBackdrop.textContent = "";
+    hitungTotal();
+  };
+
+  meterInput.oninput = () => {
+    const m = parseInt(meterInput.value || 0);
+    hargaBackdrop.textContent =
+      m ? `Harga: Rp ${(m * 20000).toLocaleString("id-ID")}` : "";
+    hitungTotal();
+  };
 
   /* ================= KIRIM WA ================= */
   document.getElementById("pesanBtn").onclick = () => {
-  const tipe = document.querySelector('input[name="tipe"]:checked');
-  if (!tipe) return showNotif("Pilih tipe bunga");
+    const tipe = document.querySelector('input[name="tipe"]:checked');
+    const tanggal = document.getElementById("tanggalAcara").value;
+    const lokasi = document.getElementById("lokasiAcara").value.trim();
 
-  const tanggal = document.getElementById("tanggalAcara").value;
-  if (!tanggal) return showNotif("Pilih tanggal acara");
+    if (!tipe || !tanggal || !lokasi)
+      return showNotif("Lengkapi data terlebih dahulu");
 
-  const lokasi = document.getElementById("lokasiAcara").value.trim();
-  if (!lokasi) return showNotif("Tentukan lokasi acara");
+    const items = [];
 
-  if (!isValidGoogleMapsLink(lokasi)) {
-    return showNotif(
-      "Lokasi harus berupa LINK GOOGLE MAPS yang valid.\n\n" +
-      "✔ Klik peta untuk otomatis\n" +
-      "✔ Atau paste link dari Google Maps"
-    );
-  }
+    document.querySelectorAll(".item-tambahan input[type=checkbox]").forEach(cb => {
+      if (cb.checked && cb !== backdropCheck) {
+        items.push(cb.value);
+      }
+    });
 
-  const req = document.getElementById("reqInput").value.trim();
+    if (backdropCheck.checked) {
+      const m = parseInt(meterInput.value || 0);
+      if (!m) return showNotif("Isi jumlah meter backdrop");
+      items.push(`Kain Cover Backdrop ${m} m`);
+    }
 
-  const items = [...document.querySelectorAll('input[name="itemTambahan"]:checked')]
-    .map(i => i.value);
+    const totalHarga = hitungTotal();
+    const req = document.getElementById("reqInput").value.trim();
 
-  /* ================= RINGKASAN ================= */
-  const preview = `
+    const preview = `
 Nama    : ${getNamaUser()}
 Produk  : ${p.nama}
 Kode    : ${p.kode}
@@ -831,17 +913,20 @@ Tipe    : ${tipe.value}
 Tanggal : ${tanggal}
 Lokasi  : ${lokasi}
 
-${items.length ? `Item Tambahan:\n- ${items.join("\n- ")}` : ""}
-${req ? `\nRequest: ${req}` : ""}
+Item Tambahan:
+- ${items.join("\n- ")}
 
-Mohon harga terbaik agar bisa kita sepakati.
-  `.trim();
+Total Item Tambahan:
+Rp ${totalHarga.toLocaleString("id-ID")}
 
-  showConfirm(preview, () => {
-    const pesan = encodeURIComponent(
+${req ? "Request: " + req : ""}
+    `.trim();
+
+    showConfirm(preview, () => {
+      const pesan = encodeURIComponent(
 `Halo Admin,
 
-Nama Pelanggan : ${getNamaUser()}
+Nama: ${getNamaUser()}
 
 Produk  : ${p.nama}
 Kode    : ${p.kode}
@@ -849,16 +934,21 @@ Tipe    : ${tipe.value}
 Tanggal : ${tanggal}
 Lokasi  : ${lokasi}
 
-${items.length ? "Item Tambahan:\n- " + items.join("\n- ") + "\n" : ""}${req ? "Request: " + req + "\n" : ""}
+Item Tambahan:
+- ${items.join("\n- ")}
+
+Total Item Tambahan:
+Rp ${totalHarga.toLocaleString("id-ID")}
+
+${req ? "Request: " + req + "\n" : ""}
 Mohon harga terbaik agar bisa kita sepakati.
 Terima kasih`
-    );
+      );
 
-    window.open(`https://wa.me/6285229128758?text=${pesan}`, "_blank");
-  });
-};
-
+      window.open(`https://wa.me/6285229128758?text=${pesan}`, "_blank");
+    });
   };
+}
 
 
 /* INIT */
