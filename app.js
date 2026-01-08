@@ -772,14 +772,15 @@ function loadDetail() {
     <div class="lokasi-mode">
       <label><input type="radio" name="lokasiMode" value="ketik" checked> Ketik Lokasi</label>
       <label style="margin-left:12px">
-        <input type="radio" name="lokasiMode" value="map"> Pilih dari Map
+        <input type="radio" name="lokasiMode" value="map"> Pilih dari Peta
       </label>
     </div>
 
     <input type="text" id="lokasiAcara" placeholder="Contoh: Gedung Serbaguna Bekasi">
 
     <div id="mapWrap" style="display:none">
-      <div id="map" style="height:280px;margin-top:10px;border-radius:12px"></div>
+      <div id="map"></div>
+      <div class="map-watermark">© OpenStreetMap contributors</div>
     </div>
 
     <textarea id="reqInput" placeholder="Request tambahan (opsional)"></textarea><br>
@@ -793,8 +794,17 @@ function loadDetail() {
     const style = document.createElement("style");
     style.id = "detailStyle";
     style.innerHTML = `
-      .lokasi-mode {
-        margin:6px 0 8px;
+      .lokasi-mode { margin:6px 0 8px }
+      #map {
+        height:280px;
+        border-radius:14px;
+        margin-top:10px;
+      }
+      .map-watermark {
+        text-align:right;
+        font-size:11px;
+        opacity:.6;
+        margin-top:4px;
       }
       #meterBackdrop {
         width:90px;
@@ -805,32 +815,46 @@ function loadDetail() {
         background:linear-gradient(135deg,rgba(128,0,255,.45),rgba(0,120,255,.45));
         color:#fff;
       }
-      #hargaBackdrop {
-        font-size:13px;
-        color:#fff;
-      }
+      #hargaBackdrop { font-size:13px;color:#fff }
     `;
     document.head.appendChild(style);
   })();
 
-  /* ================= MAP ================= */
+  /* ================= MAP (LEAFLET + SEARCH) ================= */
   let map, marker;
 
   function initMap() {
     if (map) return;
+
     map = L.map("map").setView([-6.2, 106.8], 12);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
-    map.on("click", e => {
-      if (!marker) marker = L.marker(e.latlng).addTo(map);
-      else marker.setLatLng(e.latlng);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "© OpenStreetMap contributors"
+    }).addTo(map);
 
+    marker = L.marker(map.getCenter(), { draggable: true }).addTo(map);
+
+    function setLokasi(latlng, label = "") {
+      marker.setLatLng(latlng);
+      map.panTo(latlng);
       document.getElementById("lokasiAcara").value =
-        `https://www.google.com/maps?q=${e.latlng.lat},${e.latlng.lng}`;
-    });
+        label || `https://www.google.com/maps?q=${latlng.lat},${latlng.lng}`;
+    }
+
+    map.on("click", e => setLokasi(e.latlng));
+    marker.on("dragend", () => setLokasi(marker.getLatLng()));
+
+    /* SEARCH NAMA LOKASI */
+    L.Control.geocoder({
+      defaultMarkGeocode: false,
+      placeholder: "Cari nama tempat…"
+    })
+      .on("markgeocode", e => {
+        setLokasi(e.geocode.center, e.geocode.name);
+      })
+      .addTo(map);
   }
 
-  /* ================= MODE LOKASI ================= */
   document.querySelectorAll('input[name="lokasiMode"]').forEach(r => {
     r.onchange = () => {
       const mode = document.querySelector('input[name="lokasiMode"]:checked').value;
@@ -877,25 +901,40 @@ function loadDetail() {
   };
 
   /* ================= KIRIM WA ================= */
-  document.getElementById("pesanBtn").onclick = () => {
-    const tipe = document.querySelector('input[name="tipe"]:checked');
-    const tanggal = document.getElementById("tanggalAcara").value;
-    const lokasi = document.getElementById("lokasiAcara").value.trim();
+  /* ================= KIRIM WA ================= */
+document.getElementById("pesanBtn").onclick = () => {
+  const tipe = document.querySelector('input[name="tipe"]:checked');
+  const tanggal = document.getElementById("tanggalAcara").value;
+  const lokasi = document.getElementById("lokasiAcara").value.trim();
 
-    if (!tipe || !tanggal || !lokasi)
-      return showNotif("Lengkapi data terlebih dahulu");
+  if (!tipe || !tanggal || !lokasi) {
+    showNotif("Lengkapi data terlebih dahulu");
+    return;
+  }
 
-    const items = [];
-    document.querySelectorAll(".item-tambahan input[type=checkbox]").forEach(cb => {
-      if (cb.checked && cb !== backdropCheck) items.push(cb.value);
-    });
-    if (backdropCheck.checked) items.push(`Kain Cover Backdrop ${meterInput.value} m`);
+  const items = [];
 
-    const totalHarga = hitungTotal();
-    const req = document.getElementById("reqInput").value.trim();
+  document.querySelectorAll(".item-tambahan input[type=checkbox]").forEach(cb => {
+    if (cb.checked && cb.dataset.harga) {
+      items.push(cb.value);
+    }
+  });
 
-    showConfirm(
-`Nama    : ${getNamaUser()}
+  if (backdropCheck.checked) {
+    const meter = parseInt(meterInput.value || 0);
+    if (!meter) {
+      showNotif("Isi jumlah meter backdrop");
+      return;
+    }
+    items.push(`Kain Cover Backdrop ${meter} m`);
+  }
+
+  const totalHarga = hitungTotal();
+  const req = document.getElementById("reqInput").value.trim();
+
+  /* ===== RINGKASAN (AMAN) ===== */
+  const preview = `
+Nama    : ${getNamaUser()}
 Produk  : ${p.nama}
 Kode    : ${p.kode}
 Tipe    : ${tipe.value}
@@ -903,17 +942,18 @@ Tanggal : ${tanggal}
 Lokasi  : ${lokasi}
 
 Item Tambahan:
-- ${items.join("\n- ")}
+${items.length ? "- " + items.join("\n- ") : "- Tidak ada"}
 
 Total Item Tambahan:
 Rp ${totalHarga.toLocaleString("id-ID")}
-${req ? "\nRequest: " + req : ""}`, () => {
+${req ? "\nRequest: " + req : ""}
+  `.trim();
 
-      const pesan = encodeURIComponent(
+  showConfirm(preview, () => {
+    const pesan = encodeURIComponent(
 `Halo Admin,
 
-Nama: ${getNamaUser()}
-
+Nama    : ${getNamaUser()}
 Produk  : ${p.nama}
 Kode    : ${p.kode}
 Tipe    : ${tipe.value}
@@ -921,19 +961,22 @@ Tanggal : ${tanggal}
 Lokasi  : ${lokasi}
 
 Item Tambahan:
-- ${items.join("\n- ")}
+${items.length ? "- " + items.join("\n- ") : "- Tidak ada"}
 
 Total Item Tambahan:
 Rp ${totalHarga.toLocaleString("id-ID")}
 
 ${req ? "Request: " + req + "\n" : ""}
 Terima kasih`
-      );
+    );
 
-      window.open(`https://wa.me/6285229128758?text=${pesan}`, "_blank");
-    });
-  };
-}
+    window.open(
+      "https://wa.me/6285229128758?text=" + pesan,
+      "_blank"
+    );
+  });
+};
+
 
 
 /* INIT */
@@ -941,5 +984,5 @@ document.addEventListener("DOMContentLoaded", () => {
   renderPreview();
   renderProducts();
   loadDetail();
-});
+})};
 
