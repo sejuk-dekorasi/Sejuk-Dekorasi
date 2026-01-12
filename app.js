@@ -200,7 +200,6 @@ const DEFAULT_PRODUCTS = [
 <li>Pemesanan wajib DP.
 <li>Pembatalan pemesanan sepihak dari customer,dp dianggap hangus.</li>
 <li>Bersedia di up di socialmedia.</li>
-<li>Tambahan biaya jika jarak lebih dari 3km</li>
 </ol>`
   },
   {
@@ -240,7 +239,6 @@ di RUMAH<br><br>
 <li>Pemesanan wajib DP.
 <li>Pembatalan pemesanan sepihak dari customer,dp dianggap hangus.</li>
 <li>Bersedia di up di socialmedia.</li>
-<li>Tambahan biaya jika jarak lebih dari 3km</li>
 </ol>`
   },
   {
@@ -270,17 +268,11 @@ di RUMAH<br><br>
   <li>Karpet pelaminan</li>
   <li>Kain cover meja kado</li>
 </ol>
-
-<b>DEKORASI MODERN</b><br>
-<b>Price List :</b><br>
-Dekorasi Akad + Resepsi<br>
-di RUMAH<br><br>
 <b>NOTED :<b>
 <ol>
 <li>Pemesanan wajib DP.
 <li>Pembatalan pemesanan sepihak dari customer,dp dianggap hangus.</li>
 <li>Bersedia di up di socialmedia.</li>
-<li>Tambahan biaya jika jarak lebih dari 3km</li>
 </ol>`
   },
   {
@@ -310,17 +302,11 @@ di RUMAH<br><br>
   <li>Karpet pelaminan</li>
   <li>Kain cover meja kado</li>
 </ol>
-
-<b>DEKORASI MODERN</b><br>
-<b>Price List :</b><br>
-Dekorasi Akad + Resepsi<br>
-di RUMAH<br><br>
 <b>NOTED :<b>
 <ol>
 <li>Pemesanan wajib DP.
 <li>Pembatalan pemesanan sepihak dari customer,dp dianggap hangus.</li>
 <li>Bersedia di up di socialmedia.</li>
-<li>Tambahan biaya jika jarak lebih dari 3km</li>
 </ol>`
   },
   {
@@ -350,17 +336,11 @@ di RUMAH<br><br>
   <li>Karpet pelaminan</li>
   <li>Kain cover meja kado</li>
 </ol>
-
-<b>DEKORASI MODERN</b><br>
-<b>Price List :</b><br>
-Dekorasi Akad + Resepsi<br>
-di RUMAH<br><br>
 <b>NOTED :<b>
 <ol>
 <li>Pemesanan wajib DP.
 <li>Pembatalan pemesanan sepihak dari customer,dp dianggap hangus.</li>
 <li>Bersedia di up di socialmedia.</li>
-<li>Tambahan biaya jika jarak lebih dari 3km</li>
 </ol>`
   },
   {
@@ -390,17 +370,11 @@ di RUMAH<br><br>
   <li>Karpet pelaminan</li>
   <li>Kain cover meja kado</li>
 </ol>
-
-<b>DEKORASI MODERN</b><br>
-<b>Price List :</b><br>
-Dekorasi Akad + Resepsi<br>
-di RUMAH<br><br>
 <b>NOTED :<b>
 <ol>
 <li>Pemesanan wajib DP.
 <li>Pembatalan pemesanan sepihak dari customer,dp dianggap hangus.</li>
 <li>Bersedia di up di socialmedia.</li>
-<li>Tambahan biaya jika jarak lebih dari 3km</li>
 </ol>`
   },
   {
@@ -430,17 +404,11 @@ di RUMAH<br><br>
   <li>Karpet pelaminan</li>
   <li>Kain cover meja kado</li>
 </ol>
-
-<b>DEKORASI MODERN</b><br>
-<b>Price List :</b><br>
-Dekorasi Akad + Resepsi<br>
-di RUMAH<br><br>
 <b>NOTED :<b>
 <ol>
 <li>Pemesanan wajib DP.
 <li>Pembatalan pemesanan sepihak dari customer,dp dianggap hangus.</li>
 <li>Bersedia di up di socialmedia.</li>
-<li>Tambahan biaya jika jarak lebih dari 3km</li>
 </ol>`
   },
   {
@@ -470,17 +438,11 @@ di RUMAH<br><br>
   <li>Karpet pelaminan</li>
   <li>Kain cover meja kado</li>
 </ol>
-
-<b>DEKORASI MODERN</b><br>
-<b>Price List :</b><br>
-Dekorasi Akad + Resepsi<br>
-di RUMAH<br><br>
 <b>NOTED :<b>
 <ol>
 <li>Pemesanan wajib DP.
 <li>Pembatalan pemesanan sepihak dari customer,dp dianggap hangus.</li>
 <li>Bersedia di up di socialmedia.</li>
-<li>Tambahan biaya jika jarak lebih dari 3km</li>
 </ol>`
   },
   {
@@ -510,17 +472,11 @@ di RUMAH<br><br>
   <li>Karpet pelaminan</li>
   <li>Kain cover meja kado</li>
 </ol>
-
-<b>DEKORASI MODERN</b><br>
-<b>Price List :</b><br>
-Dekorasi Akad + Resepsi<br>
-di RUMAH<br><br>
 <b>NOTED :<b>
 <ol>
 <li>Pemesanan wajib DP.
 <li>Pembatalan pemesanan sepihak dari customer,dp dianggap hangus.</li>
 <li>Bersedia di up di socialmedia.</li>
-<li>Tambahan biaya jika jarak lebih dari 3km</li>
 </ol>`
   },
   {
@@ -550,17 +506,12 @@ di RUMAH<br><br>
   <li>Karpet pelaminan</li>
   <li>Kain cover meja kado</li>
 </ol>
-
-<b>DEKORASI MODERN</b><br>
-<b>Price List :</b><br>
-Dekorasi Akad + Resepsi<br>
-di RUMAH<br><br>
 <b>NOTED :<b>
 <ol>
 <li>Pemesanan wajib DP.
 <li>Pembatalan pemesanan sepihak dari customer,dp dianggap hangus.</li>
 <li>Bersedia di up di socialmedia.</li>
-<li>Tambahan biaya jika jarak lebih dari 3km</li>
+
 </ol>`
   },
 ];
@@ -589,25 +540,19 @@ function getFilteredProducts() {
   });
 }
 
-/* ===========================================================
- *  RENDER PREVIEW
- * =========================================================== */
 function renderPreview() {
   const target = document.getElementById("previewGrid");
   if (!target) return;
 
-  // inject CSS (sekali saja)
+  /* ===== inject CSS ===== */
   if (!document.getElementById("sliderStyle")) {
     const style = document.createElement("style");
     style.id = "sliderStyle";
     style.innerHTML = `
-      #previewGrid {
-        display: block !important;
-        margin-bottom: 20px;
-      }
+      #previewGrid { display:block!important; margin-bottom:20px }
 
-      .slider-container {
-        width: 100%;
+      .slider {
+        position: relative;
         overflow: hidden;
         border-radius: 18px;
       }
@@ -615,7 +560,8 @@ function renderPreview() {
       .slider-track {
         display: flex;
         gap: 14px;
-        animation: slide 25s linear infinite;
+        transition: transform .10s ease;
+        will-change: transform;
       }
 
       .slider-item {
@@ -633,51 +579,55 @@ function renderPreview() {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: .35s ease;
-      }
-
-      .slider-item:hover img {
-        transform: scale(1.06);
       }
 
       .kode-badge {
-        position: absolute;
-        top: 8px;
-        left: 8px;
-        padding: 4px 10px;
-        font-size: 12px;
-        font-weight: bold;
-        color: #fff;
-        border-radius: 999px;
-        background: rgba(0,0,0,.6);
-        backdrop-filter: blur(6px);
-        box-shadow: 0 4px 12px rgba(0,0,0,.4);
-      }
-
-      @keyframes slide {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
+        position:absolute;
+        top:8px;
+        left:8px;
+        padding:4px 10px;
+        font-size:12px;
+        font-weight:bold;
+        color:#fff;
+        border-radius:999px;
+        background:rgba(0,0,0,.6);
+        backdrop-filter:blur(6px);
       }
     `;
     document.head.appendChild(style);
   }
 
   const items = DEFAULT_PRODUCTS.filter(p => p.img);
-  const doubled = [...items, ...items];
+  if (!items.length) return;
 
   target.innerHTML = `
-    <div class="slider-container">
+    <div class="slider">
       <div class="slider-track">
-        ${doubled.map(p => `
+        ${items.map(p => `
           <div class="slider-item" onclick="location.href='detail.html?id=${p.id}'">
             <span class="kode-badge">${p.kode}</span>
-            <img src="${p.img}" alt="${p.nama}">
+            <img src="${p.img}">
           </div>
         `).join("")}
       </div>
     </div>
   `;
+
+  /* ===== slide per slide ===== */
+  const track = target.querySelector(".slider-track");
+  const slides = target.querySelectorAll(".slider-item");
+  const gap = 14;
+  const slideWidth = slides[0].offsetWidth + gap;
+
+  let index = 0;
+
+  setInterval(() => {
+    index++;
+    if (index >= slides.length) index = 0;
+    track.style.transform = `translateX(-${index * slideWidth}px)`;
+  }, 10); // <-- KECEPATAN SLIDE (ms)
 }
+
 
 
 /* ===========================================================
@@ -724,15 +674,13 @@ function loadDetail() {
 
     <div class="deskripsi-produk">${p.deskripsi}</div>
 
-    <div class="tipe-bunga">
-      <b>Pilih Tipe Bunga</b><br>
-      <label><input type="radio" name="tipe" value="Bunga Asli" checked> Bunga Asli</label><br>
-      <label><input type="radio" name="tipe" value="Bunga Palsu"> Bunga Palsu</label><br>
-      <label><input type="radio" name="tipe" value="Campuran"> Campuran</label>
-    </div>
 
     <div class="item-tambahan">
       <b>Item Tambahan</b><br>
+<label class="item-box">
+        <input type="checkbox" data-harga="0" value="Kembar Mayang">
+       Jika jarak >3km tambah biaya transportasi
+      </label><br>
 
       <label class="item-box">
         <input type="checkbox" data-harga="250000" value="Kembar Mayang">
@@ -785,7 +733,7 @@ function loadDetail() {
 
     <textarea id="reqInput" placeholder="Request tambahan (opsional)"></textarea><br>
 
-    <button id="pesanBtn" class="btn btn-primary">Sepakati Harga</button>
+    <button id="pesanBtn" class="btn btn-primary">Tanyakan harga total</button>
   `;
 
   /* ================= CSS ================= */
@@ -903,11 +851,10 @@ function loadDetail() {
   /* ================= KIRIM WA ================= */
   /* ================= KIRIM WA ================= */
 document.getElementById("pesanBtn").onclick = () => {
-  const tipe = document.querySelector('input[name="tipe"]:checked');
   const tanggal = document.getElementById("tanggalAcara").value;
   const lokasi = document.getElementById("lokasiAcara").value.trim();
 
-  if (!tipe || !tanggal || !lokasi) {
+  if (!tanggal || !lokasi) {
     showNotif("Lengkapi data terlebih dahulu");
     return;
   }
@@ -937,7 +884,6 @@ document.getElementById("pesanBtn").onclick = () => {
 Nama    : ${getNamaUser()}
 Produk  : ${p.nama}
 Kode    : ${p.kode}
-Tipe    : ${tipe.value}
 Tanggal : ${tanggal}
 Lokasi  : ${lokasi}
 
@@ -956,7 +902,6 @@ ${req ? "\nRequest: " + req : ""}
 Nama    : ${getNamaUser()}
 Produk  : ${p.nama}
 Kode    : ${p.kode}
-Tipe    : ${tipe.value}
 Tanggal : ${tanggal}
 Lokasi  : ${lokasi}
 
@@ -985,4 +930,3 @@ document.addEventListener("DOMContentLoaded", () => {
   renderProducts();
   loadDetail();
 })};
-
