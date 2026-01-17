@@ -560,7 +560,7 @@ function renderPreview() {
       .slider-track {
         display: flex;
         gap: 14px;
-        transition: transform .10s ease;
+        transition: transform .6s cubic-bezier(.4,0,.2,1);
         will-change: transform;
       }
 
