@@ -625,7 +625,7 @@ function renderPreview() {
     index++;
     if (index >= slides.length) index = 0;
     track.style.transform = `translateX(-${index * slideWidth}px)`;
-  }, 10); // <-- KECEPATAN SLIDE (ms)
+  }, 3000); // <-- KECEPATAN SLIDE (ms)
 }
 
 
