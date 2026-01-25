@@ -1130,32 +1130,28 @@ main {
 }
 /* ================= MOBILE FIX ================= */
 /* ================= MOBILE STACK HEADER ================= */
+/* ================= MOBILE FIX ================= */
 @media (max-width: 640px) {
 
   .topbar {
-    flex-wrap: wrap;        /* BOLEH TURUN BARIS */
-    height: auto;
-    padding: 8px 10px;
+    padding: 0 10px;
+    height: 50px;
   }
 
   .brand {
-    width: 100%;
     font-size: 13px;
-    margin-bottom: 6px;
+    gap: 6px;
   }
 
   .right-actions {
-    width: 100%;
     display: flex;
-    justify-content: space-between;
-    gap: 8px;
+    gap: 6px;
   }
 
   .link {
-    flex: 1;               /* BAGI RATA */
-    padding: 10px 0;
-    font-size: 13px;
-    text-align: center;
+    padding: 8px 12px;
+    font-size: 12px;
+    border-radius: 8px;
   }
 
 }
