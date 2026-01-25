@@ -1067,6 +1067,67 @@ color: black;
     0 0 0 3px rgba(255,255,255,.25),
     0 12px 30px rgba(255,0,120,.45);
 }
+.link {
+  cursor: pointer;
+  background: rgba(red, green, blue, alpha);
+  color: white;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 12px 20px;
+ background: linear-gradient(
+  to right,
+  rgba(59,130,246,0.9),
+  rgba(139,92,246,0.9),
+  rgba(239,68,68,0.9)
+);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.link:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+/* ================= PROMO BAR FIX ================= */
+.promo-bar {
+  position: fixed;
+  top: 50px;               /* SAMA DENGAN TINGGI HEADER */
+  left: 0;
+  width: 100%;
+  z-index: 998;
+
+  background: linear-gradient(90deg, #0a2cff, #1a7cff);
+  overflow: hidden;
+
+  /* MATIKAN BLUR */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.promo-track {
+  display: flex;
+  width: max-content;
+  animation: promoScroll 16s linear infinite;
+}
+
+.promo-content {
+  display: flex;
+}
+
+.promo-content span {
+  padding: 8px 36px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* animasi */
+@keyframes promoScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+main {
+  padding-top: 100px; /* 50 header + 50 promo */
+}
 
 
 
