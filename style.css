@@ -1129,27 +1129,33 @@ main {
   padding-top: 100px; /* 50 header + 50 promo */
 }
 /* ================= MOBILE FIX ================= */
+/* ================= MOBILE STACK HEADER ================= */
 @media (max-width: 640px) {
 
   .topbar {
-    padding: 0 10px;
-    height: 50px;
+    flex-wrap: wrap;        /* BOLEH TURUN BARIS */
+    height: auto;
+    padding: 8px 10px;
   }
 
   .brand {
+    width: 100%;
     font-size: 13px;
-    gap: 6px;
+    margin-bottom: 6px;
   }
 
   .right-actions {
+    width: 100%;
     display: flex;
-    gap: 6px;
+    justify-content: space-between;
+    gap: 8px;
   }
 
   .link {
-    padding: 8px 12px;
-    font-size: 12px;
-    border-radius: 8px;
+    flex: 1;               /* BAGI RATA */
+    padding: 10px 0;
+    font-size: 13px;
+    text-align: center;
   }
 
 }
