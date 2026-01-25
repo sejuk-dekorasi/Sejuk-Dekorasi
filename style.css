@@ -1032,10 +1032,12 @@ textarea{
 /* CARD */
 .card {
   position: relative;
-  background: #fff;
-  border-radius: 12px;
+  background: var(--card);
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .card-img {
