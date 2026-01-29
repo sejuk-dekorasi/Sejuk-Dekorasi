@@ -1310,26 +1310,25 @@ color: black;
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-/* HEADER */
+/* ===== HEADER BACKGROUND ===== */
 .topbar {
-  display: flex;
-  flex-direction: column; /* PAKSA KE BAWAH */
   background: linear-gradient(
     135deg,
-    rgba(80, 70, 180, 0.9),
-    rgba(180, 70, 160, 0.9),
-    rgba(220, 70, 90, 0.9)
+    rgba(76, 81, 191, 0.95),
+    rgba(168, 85, 247, 0.95),
+    rgba(236, 72, 153, 0.95)
   );
+  padding: 12px 16px 8px;
 }
 
-/* BAR LOGO */
+/* ===== LOGO ===== */
 .top-row {
   display: flex;
   justify-content: center;
-  padding: 12px;
+  align-items: center;
+  margin-bottom: 6px;
 }
 
-/* BRAND */
 .brand {
   display: flex;
   align-items: center;
@@ -1337,33 +1336,61 @@ color: black;
 }
 
 .brand img {
-  height: 38px;
-  width: auto;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 6px;
 }
 
-/* MENU BAR */
+.brand span {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ===== MENU BAR ===== */
 .menu-bar {
   display: flex;
   justify-content: center;
-  gap: 12px;
-  padding: 10px 0;
-  background: rgba(255,255,255,0.12);
-  flex-wrap: wrap; /* PENTING BUAT HP */
+  gap: 10px;
+  padding: 6px 0 8px;
+  background: rgba(255,255,255,0.14);
+  backdrop-filter: blur(6px);
+  border-radius: 10px;
 }
 
+/* LINK MENU */
 .menu-bar a {
   padding: 8px 14px;
-  border-radius: 10px;
-  color: white;
+  border-radius: 8px;
+  color: #fff;
   text-decoration: none;
+  font-weight: 600;
   font-size: 14px;
+  transition: 0.25s;
 }
+
+/* HOVER */
+.menu-bar a:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+/* ACTIVE */
+.menu-bar a.active {
+  background: rgba(255,255,255,0.35);
+}
+
+/* ===== RESPONSIVE HP ===== */
 @media (max-width: 768px) {
   .menu-bar {
-    justify-content: space-around;
+    gap: 6px;
+    padding: 6px;
   }
 
-  .brand span {
-    font-size: 14px;
+  .menu-bar a {
+    flex: 1;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 13px;
   }
 }
