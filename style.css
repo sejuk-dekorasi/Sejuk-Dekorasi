@@ -1310,64 +1310,59 @@ color: black;
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-.link {
-  cursor: pointer;
-  background: rgba(red, green, blue, alpha);
-  color: white;
+/* ===== MENU BAR GRADIENT ===== */
+.menu-bar {
+  display: flex;
+  justify-content: center;
+  gap: 26px;
+  padding: 12px 16px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 102, 255, 0.65),
+    rgba(128, 0, 255, 0.65),
+    rgba(255, 0, 85, 0.65)
+  );
+  backdrop-filter: blur(10px);
+}
+
+/* MENU LINK */
+.menu-bar a {
+  text-decoration: none;
+  font-size: 14px;
   font-weight: 600;
-  border-radius: 10px;
-  padding: 12px 20px;
- background: linear-gradient(
-  to right,
-  rgba(59,130,246,0.9),
-  rgba(139,92,246,0.9),
-  rgba(239,68,68,0.9)
-);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.link:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-}
-/* ================= PROMO BAR FIX ================= */
-.promo-bar {
-  position: fixed;
-  top: 50px;               /* SAMA DENGAN TINGGI HEADER */
-  left: 0;
-  width: 100%;
-  z-index: 998;
-
-  background: linear-gradient(90deg, #0a2cff, #1a7cff);
-  overflow: hidden;
-
-  /* MATIKAN BLUR */
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
-
-.promo-track {
-  display: flex;
-  width: max-content;
-  animation: promoScroll 16s linear infinite;
-}
-
-.promo-content {
-  display: flex;
-}
-
-.promo-content span {
-  padding: 8px 36px;
-  font-size: 13px;
-  font-weight: 700;
   color: #fff;
+  position: relative;
+  padding: 6px 4px;
   white-space: nowrap;
 }
 
-/* animasi */
-@keyframes promoScroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+/* underline */
+.menu-bar a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: #fff;
+  transition: .25s ease;
 }
-main {
-  padding-top: 100px; /* 50 header + 50 promo */
+
+.menu-bar a:hover::after,
+.menu-bar a.active::after {
+  width: 100%;
+}
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .menu-bar {
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 12px;
+    padding: 10px;
+  }
+
+  .menu-bar a {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
 }
