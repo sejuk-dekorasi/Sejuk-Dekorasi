@@ -8,31 +8,25 @@
 </head>
 <body>
  <header class="topbar">
-  <div class="brand">
-  <a href="index.html" id="burgerBtn" class="burger"><img src="logo.png" style="
-      width:20px;
-      height:20px;
-      border-radius:50%;
-      object-fit:cover;
-    ">
-    Sejuk Dekorasi</a></div>
-    <div class="right-actions">
-      <a href="index.html"><button class="link">Beranda</button></a>
-      <a href="produk.html"><button class="link">Produk</button></a>
-      <a href="kontak.html"><button class="link">Kontak</button></a>
-       <a href="tentang.html"><button class="link">Tentang</button></a>
-    </div>
-  </header>
 
-  <nav id="sidebar" class="sidebar">
-    <a href="index.html">Beranda</a>
-    <a href="produk.html">Produk</a>
-    <a href="kontak.html">Kontak Person</a>
-    <a href="tentang.html">Tentang</a>
-    <div class="divider"></div>
-    <a href="admin.html" class="admin-link">Admin Panel</a>
-    <div class="serv-info">Melayani: <strong>Jawa Tengah</strong></div>
-  </nav>
+  <!-- BAR ATAS: LOGO -->
+  <div class="top-row">
+    <div class="brand">
+      <img src="logo.png" alt="Sejuk Dekorasi">
+      <span>Sejuk Dekorasi</span>
+    </div>
+  </div>
+
+  <!-- MENU BAR (DI BAWAH LOGO) -->
+  <nav class="menu-bar">
+  <a href="index.html">Beranda</a>
+  <a href="produk.html">Produk</a>
+  <a href="kontak.html" class="active">Kontak</a>
+  <a href="tentang.html">Tentang</a>
+</nav>
+
+
+</header>
 
   <main class="container">
     <h1>Kontak Pemesanan</h1>
@@ -51,11 +45,7 @@
     <small>© 2025 Sejuk Dekorasi</small>
   </footer>
 
-  <script>
-    document.getElementById('burgerBtn').addEventListener('click', ()=>{
-      document.getElementById('sidebar').classList.toggle('active');
-    });
-  </script>
+ 
 
 
 </body>
