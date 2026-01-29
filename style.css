@@ -1384,38 +1384,87 @@ color: black;
 }
 
 /* ===== MENU ===== */
+/* ===== HEADER BACKGROUND ===== */
+.topbar {
+  background: linear-gradient(
+    135deg,
+    rgba(76, 81, 191, 0.95),
+    rgba(168, 85, 247, 0.95),
+    rgba(236, 72, 153, 0.95)
+  );
+  padding: 12px 16px 8px;
+}
+
+/* ===== LOGO ===== */
+.top-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.brand span {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ===== MENU BAR ===== */
 .menu-bar {
   display: flex;
   justify-content: center;
-  gap: 6px;
-  margin-top: 2px;        /* 🔥 RAPET */
-  padding: 0;
-  background: none;       /* 🔥 PENTING */
+  gap: 10px;
+  padding: 6px 0 8px;
+  background: rgba(255,255,255,0.14);
+  backdrop-filter: blur(6px);
+  border-radius: 10px;
 }
 
+/* LINK MENU */
 .menu-bar a {
-  padding: 6px 12px;
-  font-size: 13px;
-  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
   color: #fff;
   text-decoration: none;
-  border-radius: 6px;
-  transition: .2s;
+  font-weight: 600;
+  font-size: 14px;
+  transition: 0.25s;
 }
 
+/* HOVER */
 .menu-bar a:hover {
   background: rgba(255,255,255,0.25);
 }
 
+/* ACTIVE */
 .menu-bar a.active {
   background: rgba(255,255,255,0.35);
 }
 
-/* ===== HP ===== */
+/* ===== RESPONSIVE HP ===== */
 @media (max-width: 768px) {
+  .menu-bar {
+    gap: 6px;
+    padding: 6px;
+  }
+
   .menu-bar a {
     flex: 1;
     text-align: center;
-    padding: 8px 0;
+    padding: 10px 0;
+    font-size: 13px;
   }
 }
