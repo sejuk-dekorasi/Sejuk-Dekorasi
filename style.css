@@ -1365,4 +1365,9 @@ color: black;
     font-size: 13px;
     padding: 8px 10px;
   }
+  .logo img {
+  height: 40px;      /* ukuran aman */
+  width: auto;
+  object-fit: contain;
+}
 }
