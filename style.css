@@ -1349,48 +1349,73 @@ color: black;
 }
 
 /* ===== MENU BAR ===== */
+/* ===== HEADER ===== */
+.topbar {
+  background: linear-gradient(
+    135deg,
+    rgba(76, 81, 191, 0.95),
+    rgba(168, 85, 247, 0.95),
+    rgba(236, 72, 153, 0.95)
+  );
+  padding: 10px 12px 6px; /* DIKECILKAN */
+}
+
+/* ===== BRAND ===== */
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;              /* 🔥 HAPUS JARAK */
+  padding: 0;
+}
+
+.brand img {
+  width: 30px;            /* LOGO FIX */
+  height: 30px;
+  object-fit: contain;
+}
+
+.brand span {
+  font-size: 18px;        /* SEIMBANG */
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+}
+
+/* ===== MENU ===== */
 .menu-bar {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  padding: 6px 0 8px;
-  background: rgba(255,255,255,0.14);
-  backdrop-filter: blur(6px);
-  border-radius: 10px;
+  gap: 6px;
+  margin-top: 2px;        /* 🔥 RAPET */
+  padding: 0;
+  background: none;       /* 🔥 PENTING */
 }
 
-/* LINK MENU */
 .menu-bar a {
-  padding: 8px 14px;
-  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 600;
   color: #fff;
   text-decoration: none;
-  font-weight: 600;
-  font-size: 14px;
-  transition: 0.25s;
+  border-radius: 6px;
+  transition: .2s;
 }
 
-/* HOVER */
 .menu-bar a:hover {
   background: rgba(255,255,255,0.25);
 }
 
-/* ACTIVE */
 .menu-bar a.active {
   background: rgba(255,255,255,0.35);
 }
 
-/* ===== RESPONSIVE HP ===== */
+/* ===== HP ===== */
 @media (max-width: 768px) {
-  .menu-bar {
-    gap: 6px;
-    padding: 6px;
-  }
-
   .menu-bar a {
     flex: 1;
     text-align: center;
-    padding: 10px 0;
-    font-size: 13px;
+    padding: 8px 0;
   }
 }
